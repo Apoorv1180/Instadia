@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/all_background"
+    android:orientation="vertical"
+    tools:context=".EastGalleryActivity">
+
+
+    <Button
+        android:id="@+id/east_outer_periphery_button"
+        android:layout_width="220dp"
+        android:layout_height="49dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/outerperriferry"
+        android:onClick="work_specification_btn" />
+
+    <Button
+        android:id="@+id/east_ground_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/groundfloor"
+        android:onClick="work_specification_btn" />
+
+    <Button
+        android:id="@+id/east_first_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/firstfloor"
+        android:onClick="work_specification_btn" />
+
+    <Button
+        android:id="@+id/east_second_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/secondfloor"
+        android:onClick="work_specification_btn" />
+
+
+</LinearLayout>

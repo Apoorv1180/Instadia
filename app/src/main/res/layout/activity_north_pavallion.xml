@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NorthPavallionActivity"
+    android:background="@drawable/all_background"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/outer_periphery_button"
+        android:layout_width="220dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="90dp"
+        android:layout_gravity="center"
+        android:background="@drawable/outerperriferry"
+        android:onClick="work_specification_btn"/>
+
+
+    <Button
+        android:id="@+id/ground_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/groundfloor"
+        android:onClick="work_specification_btn"/>
+
+    <Button
+        android:id="@+id/media_box_button"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/media"
+        android:onClick="work_specification_btn"/>
+
+    <Button
+        android:id="@+id/second_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/secondfloor"
+        android:onClick="work_specification_btn"/>
+
+    <Button
+        android:id="@+id/third_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/thirdfloor"
+        android:onClick="work_specification_btn"/>
+</LinearLayout>

@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">Instadia</string>
+    <string name="Login">LOGIN</string>
+    <string name="submit">SIGN IN</string>
+    <string name="email_hint">Enter Your Phone Number...</string>
+    <string name="password">Enter OTP Recieved</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="name">NAME</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login_now"> <u>Login now</u> </string>
+    <string name="email">EMAIL ID</string>
+    <string name="phoneNumber">PHONE NUMBER</string>
+    <string name="organisation">ORGANISATION</string>
+    <string name="passwordValue">PASSWORD</string>
+    <string name="confirmPassword">RE-TYPE PASSWORD</string>
+    <string name="WORK">WORK</string>
+    <string name="stock">STOCK</string>
+    <string name="report">REPORT</string>
+    <string name="north_pavallion">NORTH PAVALLION</string>
+    <string name="south_pavallion">SOUTH PAVALLION</string>
+    <string name="east_gallery">EAST GALLERY</string>
+    <string name="west_gallery">WEST GALLERY</string>
+    <string name="admin_block">ADMINISTRATIVE BLOCK</string>
+    <string name="outer_periferry">OUTER PERIPHERY</string>
+    <string name="ground_floor">GROUND FLOOR</string>
+    <string name="media_box">MEDIA BOX</string>
+    <string name="second_floor">SECOND FLOOR</string>
+    <string name="third_floor">THIRD FLOOR</string>
+    <string name="first_floor">FIRST FLOOR</string>
+    <string name="corporation_boxes">CORPORATION BOXES</string>
+    <string name="infrastructure">INFRASTRUCTURE</string>
+    <string name="chair_maintainance">CHAIR MAINTAINANCE</string>
+    <string name="electricity">ELECTRICITY</string>
+    <string name="house_keeping">HOUSE KEEPING</string>
+    <string name="any_other_specification_issue">OTHER SPECIFIC ISSUE</string>
+    <string name="issue_description">ISSUE DESCRIPTION</string>
+    <string name="civil">CIVIL</string>
+    <string name="lift">LIFT</string>
+    <string name="plumbing">PLUMBING AND SANITATION</string>
+    <string name="drainage">DRAINAGE</string>
+    <string name="block">Block</string>
+    <string name="seat_number">SEAT NUMBER</string>
+    <string name="screw_fixing">SCREW FIXING</string>
+    <string name="chair_repair">CHAIR REPAIR</string>
+    <string name="seat_no_painting">SEAT NO. PAINTING</string>
+    <string name="frame_repair">FRAME REPAIR</string>
+    <string name="other">OTHER</string>
+    <string name="save">SAVE</string>
+    <string name="ac">AC</string>
+    <string name="light">LIGHT AND FAN</string>
+    <string name="fan">FAN</string>
+    <string name="wiring">WIRING AND CABLING</string>
+    <string name="toilets">TOILETS</string>
+    <string name="chair_polish">CHAIR POLISH</string>
+    <string name="wet_mop">WET MOP</string>
+    <string name="deep_cleaning">DEEP CLEANING</string>
+    <string name="dry_mop">DRY MOP</string>
+    <string name="dusting">DUSTING</string>
+    <string name="cleaning_percentage">CLEANING COMPLETED</string>
+    <string name="create_account">Create Account</string>
+    <string name="important_issue">IMPORTANT ISSUE</string>
+    <string name="area">AREA</string>
+    <string name="EnterAreaAndBlock">Enter Your Area And Block</string>
+    <string name="sendCode">SEND CODE</string>
+    <string name="Verify">VERIFY OTP</string>
+    <string name="ResendCode">Resend Code</string>
+    <string name="password1">PASSWORD</string>
+    <string name="confirm_password">CONFIRM PASSWORD</string>
+    <string name="issue_desc">Issue Description</string>
+    <string name="my_preferences_key_profile">Profile</string>
+    <string name="preferences_key_work">key_work</string>
+    <string name="preferences_key_stock">key_stock</string>
+    <string name="preferences_key_report">key_report</string>
+    <string name="preferences_key_priority">key_priority</string>
+    <string name="my_preferences_key_work_area">work_area_key</string>
+    <string name="preferences_key_pavallion">pavallion</string>
+    <string name="my_preferences_key_north_pavallion">NorthpavallionKey</string>
+    <string name="preferences_key_pavallion_area">pavallion_area</string>
+    <string name="my_preferences_key_south_pavallion">south_key</string>
+    <string name="my_preferences_key_work_area_specification">Work_specification_area</string>
+    <string name="preferences_key_area_type">area_type</string>
+
+
+    <string-array name="percentage_array">
+        <item>--Select--</item>
+        <item> 0% </item>
+        <item> 10% </item>
+        <item> 20% </item>
+        <item> 30% </item>
+        <item> 40% </item>
+        <item> 50% </item>
+        <item> 60% </item>
+        <item> 70% </item>
+        <item> 80% </item>
+        <item> 90% </item>
+        <item> 100% </item>
+    </string-array>
+
+</resources>

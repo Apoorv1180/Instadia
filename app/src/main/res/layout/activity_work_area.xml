@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent" android:layout_width="match_parent"
+    android:background="@drawable/all_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".WorkAreaActivity"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+    <Button
+        android:id="@+id/north_pavallion_button"
+        android:layout_width="220dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/northpavallion"
+        android:onClick="north_pavallion_btn"/>
+
+    <Button
+        android:id="@+id/south_pavallion_button"
+        android:layout_width="220dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/southpavllion"
+        android:onClick="south_pavallion_btn"/>
+
+
+    <Button
+        android:id="@+id/east_gallery_button"
+        android:layout_width="220dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/eastgallery"
+        android:onClick="east_gallery_btn"/>
+
+
+    <Button
+        android:id="@+id/west_gallery_button"
+        android:layout_width="220dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/westgallery"
+        android:onClick="west_gallery_btn"/>
+
+    <Button
+        android:id="@+id/admin_block_button"
+        android:layout_width="222dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/admin"
+        android:onClick="admin_block_btn"/>
+
+</LinearLayout>
+</RelativeLayout>

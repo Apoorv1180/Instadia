@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/all_background"
+    android:orientation="vertical"
+    tools:context=".AdminBlockActivity">
+
+    <Button
+        android:id="@+id/ground_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/groundfloor"
+        android:onClick="work_specification_btn"/>
+    <Button
+        android:id="@+id/admin_first_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/firstfloor"
+        android:onClick="work_specification_btn" />
+
+    <Button
+        android:id="@+id/admin_second_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/secondfloor"
+        android:onClick="work_specification_btn" />
+
+    <Button
+        android:id="@+id/admin_third_floor_button"
+        android:layout_width="220dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/thirdfloor"
+        android:onClick="work_specification_btn" />
+
+</LinearLayout>

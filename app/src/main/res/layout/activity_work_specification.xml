@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/all_background"
+    android:orientation="vertical"
+    tools:context=".WorkSpecificationActivity">
+
+
+    <Button
+        android:id="@+id/infrastructure_button"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/infrastructure"
+        android:onClick="infrastructure_btn" />
+
+
+    <Button
+        android:id="@+id/chair_maintainance_button"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/chairmaintainance"
+        android:onClick="chair_maintainance_btn" />
+
+
+    <Button
+        android:id="@+id/electricity_button"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/electricity"
+        android:onClick="electricity_btn" />
+
+    <Button
+        android:id="@+id/house_keeping_button"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/housekeeping"
+        android:onClick="house_keeping_btn" />
+
+
+    <Button
+        android:id="@+id/any_other_specification_issue_button"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/otherissue"
+        android:onClick="other_issue_btn" />
+
+</LinearLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "516018621987",
+    "firebase_url": "https://instadia-c84f4.firebaseio.com",
+    "project_id": "instadia-c84f4",
+    "storage_bucket": "instadia-c84f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516018621987:android:d38974862aa9a2bf",
+        "android_client_info": {
+          "package_name": "com.apoorv.dubey.android.instadia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516018621987-oi6nema58l7uqunojgcc1f3hs15h76ep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apoorv.dubey.android.instadia",
+            "certificate_hash": "902946de51294dc03f57ba7bbdf90f9f4787af19"
+          }
+        },
+        {
+          "client_id": "516018621987-ppplutflj5tcfr732kek4tfd1g2o7ntr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR4Goe9HpZShH7aAOfjxdaaYxZV-ugpfo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516018621987-ppplutflj5tcfr732kek4tfd1g2o7ntr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

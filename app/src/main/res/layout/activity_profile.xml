@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/all_background"
+    android:scaleType="fitXY"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/work_button"
+        android:layout_width="330dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/work_new"
+        android:onClick="work_btn" />
+
+    <Button
+        android:id="@+id/stock_button"
+        android:layout_width="330dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/stock_new"
+        android:onClick="stock_btn" />
+
+    <Button
+        android:id="@+id/report_button"
+        android:layout_width="330dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/report_new"
+        android:onClick="report_btn" />
+
+    <Button
+        android:id="@+id/important_issue"
+        android:layout_width="330dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/importan_new"
+        android:onClick="raise_issue_btn" />
+
+
+
+
+</LinearLayout>

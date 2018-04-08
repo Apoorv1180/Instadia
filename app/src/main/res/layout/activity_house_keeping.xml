@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/all_background"
+    android:orientation="vertical"
+    tools:context=".HouseKeepingActivity">
+
+
+    <ImageView
+        android:id="@+id/house_keeping_image_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/camera" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="PAVALLION"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:text="P"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/house_keeping_percentage_edit_text"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:textSize="20sp"
+            android:maxLength="1"
+            android:inputType="number" />
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/house_keeping_comment_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:ems="10"
+        android:hint="@string/issue_description"
+        android:inputType="textPersonName" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/house_keeping_cleaning_percentage_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:ems="10"
+            android:text="@string/cleaning_percentage"
+            android:textSize="18sp" />
+        <Spinner
+            android:id="@+id/percentage_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/house_keeping_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/house_keeping_dusting_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/dusting"
+                android:textColor="@color/colorWhite" />
+
+            <RadioButton
+                android:id="@+id/house_keeping_drymop_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/dry_mop"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/house_keeping_deep_cleaning_radio_button"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/deep_cleaning"
+                android:textColor="@color/colorWhite" />
+
+            <RadioButton
+                android:id="@+id/house_keeping_wetmop_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/wet_mop"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/house_keeping_chair_polish_radio_button"
+                android:layout_width="92dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/chair_polish"
+                android:textColor="@color/colorWhite" />
+
+            <RadioButton
+                android:id="@+id/house_keeping_toilets_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/toilets"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/house_keeping_save_button"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/customborder1"
+        android:text="@string/save"
+        android:textColor="@color/colorWhite" />
+</LinearLayout>
+</ScrollView>

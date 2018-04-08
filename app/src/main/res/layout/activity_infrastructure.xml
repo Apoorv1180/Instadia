@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/all_background"
+    tools:context=".InfrastructureActivity"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/infra_image_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/camera" />
+
+    <EditText
+        android:id="@+id/infra_comment_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="textPersonName"
+        android:hint="@string/issue_description"/>
+
+    <RadioGroup
+        android:id="@+id/infra_radio_group"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/infra_civil_radio_button"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:layout_marginTop="3dp"
+            android:buttonTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"
+            android:layout_weight="1"
+            android:text="@string/civil"
+           />
+        <RadioButton
+            android:id="@+id/infra_lift_radio_button"
+            android:layout_width="250dp"
+            android:background="@drawable/customborder"
+            android:layout_marginTop="3dp"
+            android:buttonTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/lift" />
+
+        <RadioButton
+            android:id="@+id/infra_plumbing_radio_button"
+            android:layout_width="250dp"
+            android:background="@drawable/customborder"
+            android:layout_marginTop="3dp"
+            android:buttonTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/plumbing" />
+        <RadioButton
+            android:id="@+id/infra_drainage_radio_button"
+            android:layout_width="250dp"
+            android:background="@drawable/customborder"
+            android:layout_marginTop="3dp"
+            android:buttonTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/any_other_specification_issue" />
+
+    </RadioGroup>
+    <Button
+        android:id="@+id/infra_save_button"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/customborder1"
+        android:text="@string/save" />
+</LinearLayout>

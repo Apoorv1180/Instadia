@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent" android:layout_width="match_parent"
+    android:background="@drawable/all_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CheckReportActivity"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/infrastructure_button"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/infrastructure"
+            android:onClick="infrastructure_btn"/>
+
+
+        <Button
+            android:id="@+id/chair_maintainance_button"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/chairmaintainance"
+            android:onClick="chair_maintainance_btn"/>
+
+
+        <Button
+            android:id="@+id/electricity_button"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/electricity"
+            android:onClick="electricity_btn"/>
+
+        <Button
+            android:id="@+id/house_keeping_button"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/housekeeping"
+            android:onClick="house_keeping_btn"/>
+
+        <Button
+            android:id="@+id/specific_issue_btn"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/otherissue"
+            android:onClick="specific_issue_btn"/>
+    </LinearLayout>
+</RelativeLayout>

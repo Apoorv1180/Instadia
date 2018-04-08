@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent" android:layout_width="match_parent"
+    android:background="@drawable/all_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HouseKeepingReport"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/dusting_btn"
+            android:layout_width="220dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:text="dusting"
+            android:onClick="dusting_btn"/>
+
+        <Button
+            android:id="@+id/dryMop_btn"
+            android:layout_width="220dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:text="dry mop"
+            android:onClick="dryMop_btn"/>
+
+
+
+        <Button
+            android:id="@+id/deep_cleaning_btn"
+            android:layout_width="220dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:text="deep cleaning"
+            android:onClick="deep_cleaning_btn"/>
+
+
+        <Button
+            android:id="@+id/wetMop_btn"
+            android:layout_width="220dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:text="wet Mop"
+            android:onClick="wetMop_btn"/>
+
+
+
+        <Button
+            android:id="@+id/chair_polish_btn"
+            android:layout_width="220dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:text="chair polish"
+            android:onClick="chair_polish_btn"/>
+
+        <Button
+            android:id="@+id/toilets_btn"
+            android:layout_width="220dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:text="toilets"
+            android:onClick="toilets_btn"/>
+
+    </LinearLayout>
+</RelativeLayout>

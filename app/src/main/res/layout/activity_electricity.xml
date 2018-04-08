@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/all_background"
+    android:orientation="vertical"
+    tools:context=".ElectricityActivity">
+
+    <ImageView
+        android:id="@+id/electricity_image_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/camera" />
+
+    <EditText
+        android:id="@+id/electricity_comment_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:ems="10"
+        android:hint="@string/issue_description"
+        android:inputType="textPersonName" />
+
+    <RadioGroup
+        android:id="@+id/electricity_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp">
+
+        <RadioButton
+            android:id="@+id/electricity_ac_radio_button"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:buttonTint="@color/colorWhite"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/colorWhite"
+            android:layout_weight="1"
+            android:text="@string/ac" />
+
+        <RadioButton
+            android:id="@+id/electricity_light_radio_button"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:layout_marginTop="3dp"
+            android:buttonTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"
+            android:layout_weight="1"
+            android:text="@string/light" />
+
+        <RadioButton
+            android:id="@+id/electricity_wiring_radio_button"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:buttonTint="@color/colorWhite"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/colorWhite"
+            android:layout_weight="1"
+            android:text="@string/wiring" />
+
+        <RadioButton
+            android:id="@+id/electricity_other_radio_button"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customborder"
+            android:layout_marginTop="3dp"
+            android:buttonTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"
+            android:layout_weight="1"
+            android:text="@string/any_other_specification_issue" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/electricity_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/customborder1"
+        android:text="@string/save"
+         />
+</LinearLayout>
