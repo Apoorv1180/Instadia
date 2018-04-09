@@ -58,13 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         resendOTP=findViewById(R.id.resend_otp_btn);
         saveUserInfo=findViewById(R.id.save_info_btn);
         mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user.getDisplayName() != null) {
-            // User is signed in}
-            startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+
             preferenceWorkArea = new PreferenceWorkArea(LoginActivity.this);
-        }
-        else {
+
             mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
                 @Override
@@ -135,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
             });
 
 
-        }
+
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
