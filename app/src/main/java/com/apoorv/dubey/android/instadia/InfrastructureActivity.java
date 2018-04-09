@@ -18,12 +18,17 @@ import com.Preferences.PreferenceSouthPavallion;
 import com.Preferences.PreferenceWestGallery;
 import com.Preferences.PreferenceWorkArea;
 import com.Preferences.PreferenceWorkAreaSpecification;
+import com.apoorv.dubey.android.model.SaveData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class InfrastructureActivity extends AppCompatActivity {
@@ -45,9 +50,11 @@ public class InfrastructureActivity extends AppCompatActivity {
     //issue description
     EditText issueDescription;
 
+    int selectedId=0;
 
     //photo
     ImageView imageView;
+    SaveData saveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +67,67 @@ public class InfrastructureActivity extends AppCompatActivity {
         preferenceEastGallery= new PreferenceEastGallery(this);
         preferenceWestGallery= new PreferenceWestGallery(this);
         preferenceWorkArea= new PreferenceWorkArea(this);
-
+        imageView = findViewById(R.id.infra_image_view);
+        issueDescription=findViewById(R.id.infra_comment_edit_text);
         radioGroup = findViewById(R.id.infra_radio_group);
-        int selectedId = radioGroup.getCheckedRadioButtonId();
+        selectedId = radioGroup.getCheckedRadioButtonId();
         radioWorkType = findViewById(selectedId);
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioWorkType= findViewById(checkedId);
+            }
+        });
+        saveData = new SaveData();
+        String userName = getUser();
+        saveData.setUserName(userName);
+        saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
+        saveData.setFloor(checkFloor());
+        saveData.setWork_category(preferenceWorkAreaSpecification.readPreferencesAreaType());
+        saveData.setSub_workCategory(radioWorkType.getText().toString());
+        if(issueDescription.getText()!=null){
+            saveData.setIssueDescription(issueDescription.getText().toString());
 
+        }else saveData.setIssueDescription("UNKNOWN");
 
+        writeData();
+    }
+
+    private String checkFloor() {
+        switch (preferenceWorkArea.readPreferencesPavallion()){
+            case  "NORTH GALLERY":
+                return preferenceNorthPavallion.readPreferencesNorthPavallionArea();
+            case  "SOUTH GALLERY":
+                return preferenceSouthPavallion.readPreferencesPavallionArea();
+            case  "EAST GALLERY":
+                return preferenceEastGallery.readPreferencesEastGalleryArea();
+            case "WEST GALLERY":
+                return preferenceWestGallery.readPreferencesWestGalleryArea();
+            case "ADMINISTRATION BLOCK":
+                return preferenceAdminBlock.readPreferencesAdminBlockArea();
+
+        }
+        return "UNKNOWN";
+    }
+
+    private String getUser() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            if((user.getDisplayName() == null) || (user.getDisplayName().isEmpty())) {
+    return "Unknown";
+
+            }
+            else{
+                String name = user.getDisplayName();
+                return name;
+
+            }
+            }
+        else
+            return "Unknown";
     }
 
 
@@ -100,5 +161,12 @@ public class InfrastructureActivity extends AppCompatActivity {
        // DatabaseReference myRef = FirebaseDatabase.getInstance().getReferenceFromUrl();
      //   myRef.setValue(data);
      //   Toast.makeText(getActivity(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/");
+
+
+        Map<String, SaveData> writeData = new HashMap<>();
+        writeData.put(String.valueOf(System.currentTimeMillis()),saveData);
+        mDatabase.setValue(writeData);
     }
 }
