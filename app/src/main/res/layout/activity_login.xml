@@ -11,11 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOGIN"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="30dp"/>
 <LinearLayout
+    android:layout_marginTop="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -30,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="10"
         android:hint="Phone Number"
         android:inputType="phone" />
 
@@ -46,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send Otp" />
+
 
     <Button
         android:id="@+id/resend_otp_btn"
@@ -65,6 +70,8 @@
         android:id="@+id/verify_otp_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#000"
+        android:textColor="@color/colorWhite"
         android:text="Verify otp" />
 
     <View
@@ -92,6 +99,7 @@
             android:layout_height="wrap_content"
             android:text="---USER INFORMATION---"
             android:layout_gravity="center"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             android:textSize="20sp"/>
 
@@ -101,6 +109,7 @@
             android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="textPersonName"
             android:hint="Enter Your Name"
             />
 
@@ -108,6 +117,7 @@
             android:id="@+id/email_editText"
             android:layout_width="match_parent"
             android:layout_marginTop="4dp"
+            android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email Id"
@@ -119,12 +129,15 @@
             android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="text"
             android:hint="ORGANISATION"
              />
 
         <Button
             android:id="@+id/save_info_btn"
             android:layout_width="match_parent"
+            android:background="#000"
+            android:textColor="@color/colorWhite"
             android:layout_height="wrap_content"
             android:text="Save" />
     </LinearLayout>
