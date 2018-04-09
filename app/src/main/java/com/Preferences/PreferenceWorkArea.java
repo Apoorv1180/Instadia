@@ -33,6 +33,12 @@ public class PreferenceWorkArea {
         editor.commit();
     }
 
+    public void writePreferencesuserName(String value) {
+
+        editor.putString(context.getString(R.string.preferences_key_username), value);
+        editor.commit();
+    }
+
     public void writePreferencesPavallionOuterPerifery(boolean value) {
 
         editor.putBoolean(context.getString(R.string.preferences_key_pavallion_area), value);
@@ -49,6 +55,11 @@ public class PreferenceWorkArea {
     public boolean readPreferencesPavallionOuterPerifery() {
         sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_work_area), Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(context.getString(R.string.preferences_key_pavallion_area), false);
+    }
+
+    public String readPreferencesuserName() {
+        sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_work_area), Context.MODE_PRIVATE);
+        return sharedPreferences.getString(context.getString(R.string.preferences_key_username), "Unknown");
     }
 
 

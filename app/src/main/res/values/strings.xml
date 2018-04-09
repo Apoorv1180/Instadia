@@ -83,6 +83,7 @@
     <string name="my_preferences_key_west_gallery">west_gallery</string>
     <string name="my_preferences_key_admin_block">admin_block</string>
     <string name="preferences_key_pavallion_tapped">pavallion_tapped</string>
+    <string name="preferences_key_username">username</string>
 
 
     <string-array name="percentage_array">
