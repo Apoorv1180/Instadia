@@ -7,15 +7,49 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.Preferences.PreferenceWestGallery;
+import com.Preferences.PreferenceWorkArea;
+
 public class WestGalleryActivity extends AppCompatActivity {
 
+    PreferenceWorkArea preferenceWorkArea;
+    PreferenceWestGallery preferenceWestGallery;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_west_gallery);
+        preferenceWorkArea = new PreferenceWorkArea(WestGalleryActivity.this);
+        preferenceWestGallery = new PreferenceWestGallery(WestGalleryActivity.this);
     }
 
     public void work_specification_btn(View view){
+
+        switch (view.getId() ){
+
+            case R.id.west_outer_periphery_button :
+                preferenceWestGallery.writePreferencesWestGalleryArea("OUTER PERIPHERY");
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+                break;
+            case R.id.west_ground_floor_button :
+                preferenceWestGallery.writePreferencesWestGalleryArea("GROUND FLOOR");
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+
+                break;
+
+            case R.id.west_first_floor_button :
+                preferenceWestGallery.writePreferencesWestGalleryArea("FIRST FLOOR");
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+
+                break;
+
+            case R.id.west_second_floor_button :
+                preferenceWestGallery.writePreferencesWestGalleryArea("SECOND FLOOR");
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+
+                break;
+
+
+        }
         Intent intent = new Intent(WestGalleryActivity.this,WorkSpecificationActivity.class);
         startActivity(intent);
     }

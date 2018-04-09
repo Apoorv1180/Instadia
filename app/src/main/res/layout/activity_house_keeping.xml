@@ -21,14 +21,6 @@
         android:layout_marginTop="10dp"
         app:srcCompat="@drawable/camera" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:text="PAVALLION"
-        android:textSize="18sp" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +28,15 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="PAVALLION"
+            android:textSize="18sp" />
+
+        <TextView
             android:layout_width="25dp"
+            android:layout_marginLeft="25dp"
             android:layout_height="wrap_content"
             android:text="P"
             android:textColor="#000"
@@ -93,15 +93,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="40dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/house_keeping_dusting_radio_button"
-                android:layout_width="wrap_content"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
@@ -112,7 +109,7 @@
 
             <RadioButton
                 android:id="@+id/house_keeping_drymop_radio_button"
-                android:layout_width="wrap_content"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
@@ -120,15 +117,10 @@
                 android:buttonTint="@color/colorWhite"
                 android:text="@string/dry_mop"
                 android:textColor="@color/colorWhite" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/house_keeping_deep_cleaning_radio_button"
-                android:layout_width="95dp"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
@@ -139,7 +131,7 @@
 
             <RadioButton
                 android:id="@+id/house_keeping_wetmop_radio_button"
-                android:layout_width="wrap_content"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
@@ -147,15 +139,11 @@
                 android:buttonTint="@color/colorWhite"
                 android:text="@string/wet_mop"
                 android:textColor="@color/colorWhite" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/house_keeping_chair_polish_radio_button"
-                android:layout_width="92dp"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
@@ -166,7 +154,7 @@
 
             <RadioButton
                 android:id="@+id/house_keeping_toilets_radio_button"
-                android:layout_width="wrap_content"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_weight="1"
@@ -175,7 +163,7 @@
                 android:text="@string/toilets"
                 android:textColor="@color/colorWhite" />
 
-        </LinearLayout>
+
     </RadioGroup>
 
     <Button
