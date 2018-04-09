@@ -7,14 +7,49 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.Preferences.PreferenceAdminBlock;
+import com.Preferences.PreferenceWorkArea;
+
 public class AdminBlockActivity extends AppCompatActivity {
 
+    PreferenceAdminBlock preferenceAdminBlock;
+    PreferenceWorkArea preferenceWorkArea;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_block);
+        preferenceAdminBlock = new PreferenceAdminBlock(AdminBlockActivity.this);
+        preferenceWorkArea = new PreferenceWorkArea(    AdminBlockActivity.this);
     }
     public void work_specification_btn(View view){
+        switch (view.getId() ){
+
+
+            case R.id.admin_ground_floor_button :
+                preferenceAdminBlock.writePreferencesAdminBlockArea("GROUND FLOOR");
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+                break;
+
+            case R.id.admin_first_floor_button :
+                preferenceAdminBlock.writePreferencesAdminBlockArea("FIRST FLOOR");
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+
+                break;
+
+            case R.id.admin_second_floor_button :
+                preferenceAdminBlock.writePreferencesAdminBlockArea("SECOND FLOOR");
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+
+                break;
+
+            case R.id.admin_third_floor_button :
+                preferenceAdminBlock.writePreferencesAdminBlockArea("THIRD FLOOR");
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+
+                break;
+
+
+        }
         Intent intent = new Intent(AdminBlockActivity.this,WorkSpecificationActivity.class);
         startActivity(intent);
     }

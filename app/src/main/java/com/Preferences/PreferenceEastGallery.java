@@ -10,33 +10,34 @@ import com.apoorv.dubey.android.instadia.R;
  * Created by himanshujain on 18/01/18.
  */
 
-public class PreferenceNorthPavallion {
+public class PreferenceEastGallery {
 
     private Context context;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    public PreferenceNorthPavallion(Context context) {
+    public PreferenceEastGallery(Context context) {
         this.context = context;
         getSharedPreference();
     }
 
     public void getSharedPreference() {
 
-        sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_north_pavallion), Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_east_gallery), Context.MODE_PRIVATE);
         this.editor = sharedPreferences.edit();
     }
 
-    public void writePreferencesNorthPavallionArea(String value) {
+    public void writePreferencesEastGalleryArea(String value) {
 
         editor.putString(context.getString(R.string.preferences_key_pavallion_area), value);
         editor.commit();
     }
 
 
-    public boolean checkPreferenceNorthPavallion() {
+
+    public boolean checkPreferenceEastGallery() {
         boolean status = false;
-        if (sharedPreferences.getString(context.getString(R.string.my_preferences_key_north_pavallion), null)== null) {
+        if (sharedPreferences.getString(context.getString(R.string.my_preferences_key_east_gallery), null)== null) {
             status = false;
         } else {
             status = true;
@@ -44,15 +45,15 @@ public class PreferenceNorthPavallion {
         return status;
     }
 
-    public String readPreferencesNorthPavallionArea() {
-        sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_north_pavallion), Context.MODE_PRIVATE);
+    public String readPreferencesEastGalleryArea() {
+        sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_east_gallery), Context.MODE_PRIVATE);
         return sharedPreferences.getString(context.getString(R.string.preferences_key_pavallion_area), null);
     }
 
 
 
 
-    public void clearPreferencesNorthPavallion() {
+    public void clearPreferencesEastGallery() {
         sharedPreferences.edit().clear().commit();
     }
 }
