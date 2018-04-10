@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -66,6 +67,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioWorkType;
     Uri downloadUri;
+    private ProgressBar mProgressBar;
     //issue description
     EditText chairBlockEditText,chairSeatNumber;
 
@@ -85,6 +87,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
         chairBlockEditText=findViewById(R.id.chair_block_editText);
         chairSeatNumber=findViewById(R.id.chair_seat_number_editText);
         radioGroup=findViewById(R.id.chair_radio_group);
+        mProgressBar = findViewById(R.id.progressBar);
         selectedId = radioGroup.getCheckedRadioButtonId();
         mStorageReference= FirebaseStorage.getInstance().getReference();
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -160,6 +163,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                    mProgressBar.setVisibility(View.GONE);
 
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
@@ -167,7 +171,8 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    mProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(),"File Cannot Be Uploaded!",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -247,13 +252,15 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
 
 
     private void writeData() {
+        mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master");
         mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(saveData);
-        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+        mProgressBar.setVisibility(View.GONE);
+        startActivity(new Intent(this, ProfileActivity.class));
 
     }
-
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();

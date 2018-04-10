@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.Preferences.PreferenceWorkArea;
@@ -39,9 +41,12 @@ public class LoginActivity extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private FirebaseAuth mAuth;
     EditText e1,e2,name,email,organisation;
+    LinearLayout linearLayout;
     Button sendOTP, verifyOTP,resendOTP,saveUserInfo;
     FrameLayout registrationFrameBtn;
     PreferenceWorkArea preferenceWorkArea;
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,9 @@ public class LoginActivity extends AppCompatActivity {
         organisation=findViewById(R.id.organisation_editText);
         resendOTP=findViewById(R.id.resend_otp_btn);
         saveUserInfo=findViewById(R.id.save_info_btn);
+        linearLayout=findViewById(R.id.login_linear_layout);
+        mProgressBar = findViewById(R.id.progressBar);
+
         mAuth = FirebaseAuth.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
@@ -78,6 +86,8 @@ public class LoginActivity extends AppCompatActivity {
                     mVerificationInProgress = false;
                     Toast.makeText(LoginActivity.this, "Verification Complete", Toast.LENGTH_SHORT).show();
                     signInWithPhoneAuthCredential(credential);
+                    mProgressBar.setVisibility(View.GONE);
+
                 }
 
                 @Override
@@ -90,6 +100,9 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     } else if (e instanceof FirebaseTooManyRequestsException) {
                     }
+
+                    mProgressBar.setVisibility(View.GONE);
+
 
                 }
 
@@ -104,12 +117,16 @@ public class LoginActivity extends AppCompatActivity {
                     sendOTP.setVisibility(View.GONE);
                     e2.setVisibility(View.VISIBLE);
                     verifyOTP.setVisibility(View.VISIBLE);
+                    mProgressBar.setVisibility(View.GONE);
+
                     // ...
                 }
             };
             sendOTP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                             "+91" + e1.getText().toString(),
                             60,
@@ -122,6 +139,8 @@ public class LoginActivity extends AppCompatActivity {
             verifyOTP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+
                     PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, e2.getText().toString());
                     // [END verify_with_code]
                     signInWithPhoneAuthCredential(credential);
@@ -130,6 +149,8 @@ public class LoginActivity extends AppCompatActivity {
             resendOTP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
                             "+91" + e1.getText().toString(),
                             60,
@@ -155,6 +176,8 @@ public class LoginActivity extends AppCompatActivity {
                             if (user.getDisplayName() == null) {
                                 // User is signed in
                                 registrationFrameBtn.setVisibility(View.VISIBLE);
+                                linearLayout.setVisibility(View.GONE);
+
                                 saveUserInfo.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -165,22 +188,29 @@ public class LoginActivity extends AppCompatActivity {
                                             String nameValue = name.getText().toString();
                                             String emailValue = email.getText().toString();
                                             String organisationValue = organisation.getText().toString();
-                                            user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(nameValue).build());
-                                            user.updateEmail(emailValue);
 
-                                            Map newPost = new HashMap();
-                                            newPost.put("name",nameValue);
-                                            newPost.put("email",emailValue);
-                                            newPost.put("organisation",organisationValue);
+                                            if(ValidationUtils.isValidName(nameValue) && ValidationUtils.isValidEmail(emailValue) && ValidationUtils.isValidName(organisationValue)) {
+                                                user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(nameValue).build());
+                                                user.updateEmail(emailValue);
 
-                                            current_user_db.setValue(newPost);
-                                            preferenceWorkArea.writePreferencesuserName(nameValue);
-                                            e1.setText(null);
-                                            e2.setText(null);
-                                            name.setText(null);
-                                            email.setText(null);
-                                            organisation.setText(null);
-                                            startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+                                                Map newPost = new HashMap();
+                                                newPost.put("name", nameValue);
+                                                newPost.put("email", emailValue);
+                                                newPost.put("organisation", organisationValue);
+
+                                                current_user_db.setValue(newPost);
+                                                preferenceWorkArea.writePreferencesuserName(nameValue);
+                                                e1.setText(null);
+                                                e2.setText(null);
+                                                name.setText(null);
+                                                email.setText(null);
+                                                organisation.setText(null);
+                                                startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                                            }
+                                            else{
+                                                Toast.makeText(LoginActivity.this,"Please Enter All values Correctly",Toast.LENGTH_SHORT).show();
+
+                                            }
 
                                         }else {
                                             Toast.makeText(LoginActivity.this,"Please Enter All the values",Toast.LENGTH_SHORT).show();
@@ -193,6 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // No user information accepted till now
                                 registrationFrameBtn.setVisibility(View.INVISIBLE);
+                                linearLayout.setVisibility(View.VISIBLE);
 
                                 startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
                                 Toast.makeText(LoginActivity.this,"Verification Done",Toast.LENGTH_SHORT).show();
@@ -211,24 +242,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private String getUser() {
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            if((user.getDisplayName() == null) || (user.getDisplayName().isEmpty())) {
-                return "Unknown";
-
-            }
-            else{
-                String name = user.getDisplayName();
-                return name;
-
-            }
-        }
-        else
-            return "Unknown";
-    }
 
 }
 

@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -60,6 +62,7 @@ public class InfrastructureActivity extends AppCompatActivity {
     PreferenceWorkAreaSpecification preferenceWorkAreaSpecification;
     private StorageReference mStorageReference;
     Uri downloadUri;
+    private ProgressBar mProgressBar;
 
     //radio group and button
     //workdone
@@ -94,6 +97,7 @@ public class InfrastructureActivity extends AppCompatActivity {
         issueDescription=findViewById(R.id.infra_comment_edit_text);
         infraSaveButton=findViewById(R.id.infra_save_button);
         radioGroup = findViewById(R.id.infra_radio_group);
+        mProgressBar = findViewById(R.id.progressBar);
         selectedId = radioGroup.getCheckedRadioButtonId();
         radioWorkType = findViewById(selectedId);
 
@@ -127,10 +131,15 @@ public class InfrastructureActivity extends AppCompatActivity {
                 saveData.setHouseKeepingPercentage(NullValues);
                 saveData.setDate(getBookingTimestamp());
                 String userName = getUser();
-                saveData.setUserName(userName);
+                if(!TextUtils.isEmpty(userName)) {
+                    saveData.setUserName(userName);
+                }
+                else saveData.setUserName(NullValues);
                 saveData.setCompletionStatus("PENDING");
                 saveData.setPavallion(NullValues);
-                saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
+                if(!TextUtils.isEmpty(preferenceWorkArea.readPreferencesPavallion())) {
+                    saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
+                }else saveData.setStand(NullValues);
                 saveData.setFloor(checkFloor());
                 saveData.setWork_category(preferenceWorkAreaSpecification.readPreferencesAreaType());
                 saveData.setSub_workCategory(radioWorkType.getText().toString());
@@ -138,7 +147,9 @@ public class InfrastructureActivity extends AppCompatActivity {
                     saveData.setIssueDescription(issueDescription.getText().toString());
 
                 }else saveData.setIssueDescription(NullValues);
+                if(!TextUtils.isEmpty(downloadUri.toString()))
                 saveData.setPhotoUri(downloadUri.toString());
+                else saveData.setPhotoUri(NullValues);
                 writeData();
 
             }
@@ -199,6 +210,7 @@ public class InfrastructureActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
+            mProgressBar.setVisibility(View.VISIBLE);
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(bp);
             Uri tempUri = getImageUri(getApplicationContext(), bp);
@@ -211,6 +223,7 @@ public class InfrastructureActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                    mProgressBar.setVisibility(View.GONE);
 
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
@@ -218,7 +231,8 @@ public class InfrastructureActivity extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    mProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(),"File Cannot Be Uploaded!",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -266,10 +280,13 @@ public class InfrastructureActivity extends AppCompatActivity {
     }
 
     private void writeData() {
+        mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master");
         mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(saveData);
         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        mProgressBar.setVisibility(View.GONE);
+        startActivity(new Intent(this,ProfileActivity.class));
 
     }
 }

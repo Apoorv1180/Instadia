@@ -7,6 +7,16 @@
     android:background="@drawable/all_background"
     android:orientation="vertical"
     tools:context=".ElectricityActivity">
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="14dp"
+        android:layout_marginTop="10dp"
+        android:indeterminate="true"
+        android:translationY="7dp"
+        android:visibility="gone"
+        />
 
     <ImageView
         android:id="@+id/electricity_image_view"

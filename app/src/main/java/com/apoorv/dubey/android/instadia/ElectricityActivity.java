@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -66,7 +68,7 @@ public class ElectricityActivity extends AppCompatActivity {
     SaveData saveData;
     Button elecSaveButton;
     Uri downloadUri;
-
+    private ProgressBar mProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,8 @@ public class ElectricityActivity extends AppCompatActivity {
         elecSaveButton=findViewById(R.id.electricity_save_button);
         radioGroup=findViewById(R.id.electricity_radio_group);
         selectedId = radioGroup.getCheckedRadioButtonId();
+        mProgressBar = findViewById(R.id.progressBar);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -111,18 +115,26 @@ public class ElectricityActivity extends AppCompatActivity {
                 saveData.setHouseKeepingPercentage(NullValues);
                 saveData.setDate(getBookingTimestamp());
                 String userName = getUser();
-                saveData.setUserName(userName);
+                if(!TextUtils.isEmpty(userName)){
+                  saveData.setUserName(userName);
+                }
+                else saveData.setUserName(NullValues);
                 saveData.setPavallion(NullValues);
                 saveData.setCompletionStatus("PENDING");
-                saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
+                if(!TextUtils.isEmpty(preferenceWorkArea.readPreferencesPavallion())) {
+                    saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
+                }else saveData.setStand(NullValues);
                 saveData.setFloor(checkFloor());
                 saveData.setWork_category(preferenceWorkAreaSpecification.readPreferencesAreaType());
                 saveData.setSub_workCategory(radioWorkType.getText().toString());
-                saveData.setPhotoUri(downloadUri.toString());
                 if(issueDescription.getText()!=null){
                     saveData.setIssueDescription(issueDescription.getText().toString());
 
-                }else saveData.setIssueDescription("UNKNOWN");
+                }else saveData.setIssueDescription(NullValues);
+                if(!TextUtils.isEmpty(downloadUri.toString()))
+                saveData.setPhotoUri(downloadUri.toString());
+                else saveData.setPhotoUri(NullValues);
+
                 writeData();
 
             }
@@ -142,7 +154,7 @@ public class ElectricityActivity extends AppCompatActivity {
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             electricity_image_view.setImageBitmap(bp);
             Uri tempUri = getImageUri(getApplicationContext(), bp);
-            Log.i("URI",tempUri.toString());
+            Log.i("URI", tempUri.toString());
             File finalFile = new File(getRealPathFromURI(tempUri));
             electricity_image_view.setImageURI(Uri.fromFile(finalFile));
             StorageReference filepath = mStorageReference.child("Photos").child(getBookingTimestamp());
@@ -151,18 +163,18 @@ public class ElectricityActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                    mProgressBar.setVisibility(View.GONE);
 
                     downloadUri = taskSnapshot.getDownloadUrl();
-                    Log.i("DownLoad uri",downloadUri.toString());
+                    Log.i("DownLoad uri", downloadUri.toString());
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    mProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "File Cannot Be Uploaded!", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
         }
     }
 
@@ -252,14 +264,16 @@ public class ElectricityActivity extends AppCompatActivity {
 
 
     private void writeData() {
+        mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master");
         mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(saveData);
-        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+        mProgressBar.setVisibility(View.GONE);
+        startActivity(new Intent(this, ProfileActivity.class));
 
     }
-
-    @Override
+        @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 0) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED

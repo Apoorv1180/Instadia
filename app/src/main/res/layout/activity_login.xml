@@ -4,9 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/all_background"
     tools:context="com.apoorv.dubey.android.instadia.LoginActivity"
     android:orientation="vertical">
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="14dp"
+        android:layout_marginTop="10dp"
+        android:indeterminate="true"
+        android:translationY="7dp"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_linear_layout"
+        android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,6 +63,8 @@
         android:id="@+id/send_otp_btn"
         android:layout_weight="1"
         android:layout_width="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/customborder1"
         android:layout_height="wrap_content"
         android:text="Send Otp" />
 
@@ -55,7 +72,9 @@
     <Button
         android:id="@+id/resend_otp_btn"
         android:layout_width="wrap_content"
+        android:layout_margin="5dp"
         android:layout_weight="1"
+        android:background="@drawable/customborder1"
         android:layout_height="wrap_content"
         android:text="ReSend Otp" />
 </LinearLayout>
@@ -63,15 +82,19 @@
         android:id="@+id/otp_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:ems="10"
         android:hint="Enter Otp Here"
         android:inputType="number" />
     <Button
         android:id="@+id/verify_otp_btn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#000"
+        android:layout_margin="15dp"
+        android:background="@drawable/customborder1"
         android:textColor="@color/colorWhite"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="Verify otp" />
 
     <View
@@ -79,6 +102,9 @@
         android:layout_height="2dp"
         android:layout_marginTop="3dp"
         android:background="@color/colorPrimaryDark"/>
+
+
+    </LinearLayout>
 
 <FrameLayout
     android:layout_width="match_parent"
@@ -136,9 +162,9 @@
         <Button
             android:id="@+id/save_info_btn"
             android:layout_width="match_parent"
-            android:background="#000"
             android:textColor="@color/colorWhite"
             android:layout_height="wrap_content"
+            android:background="@drawable/customborder1"
             android:text="Save" />
     </LinearLayout>
     </ScrollView>

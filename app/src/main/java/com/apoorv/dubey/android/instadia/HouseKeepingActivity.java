@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ListPopupWindow;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -66,6 +68,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
     RadioGroup radioGroup;
     RadioButton radioWorkType;
     Uri downloadUri;
+    private ProgressBar mProgressBar;
 
     //issue description
     EditText issueDescription,pavallion;
@@ -134,12 +137,17 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
                 saveData.setHouseKeepingPercentage(text);
                 saveData.setDate(getBookingTimestamp());
                 String userName = getUser();
-                saveData.setUserName(userName);
+                if(!TextUtils.isEmpty(userName)) {
+                    saveData.setUserName(userName);
+                }else saveData.setUserName(NullValues);
                 if(pavallion.getText()!=null){
                     saveData.setPavallion(pavallion.getText().toString());
                 }else saveData.setPavallion(NullValues);
                 saveData.setCompletionStatus("PENDING");
-                saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
+                if(!TextUtils.isEmpty(preferenceWorkArea.readPreferencesPavallion())) {
+                    saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
+                }
+                else saveData.setStand(NullValues);
                 saveData.setFloor(checkFloor());
                 saveData.setWork_category(preferenceWorkAreaSpecification.readPreferencesAreaType());
                 saveData.setSub_workCategory(radioWorkType.getText().toString());
@@ -147,7 +155,9 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
                     saveData.setIssueDescription(issueDescription.getText().toString());
 
                 }else saveData.setIssueDescription(NullValues);
+                if(!TextUtils.isEmpty(downloadUri.toString()))
                 saveData.setPhotoUri(downloadUri.toString());
+                else saveData.setPhotoUri(NullValues);
                 writeData();
 
             }
@@ -184,6 +194,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                    mProgressBar.setVisibility(View.GONE);
 
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
@@ -191,10 +202,10 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    mProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(),"File Cannot Be Uploaded!",Toast.LENGTH_SHORT).show();
                 }
             });
-
 
         }
     }
@@ -290,10 +301,13 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
 
 
     private void writeData() {
+        mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master");
         mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(saveData);
         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        mProgressBar.setVisibility(View.GONE);
+        startActivity(new Intent(this,ProfileActivity.class));
 
     }
     @Override

@@ -37,7 +37,7 @@ public class PreferenceAdminBlock {
 
     public boolean checkPreferenceAdminBlock() {
         boolean status = false;
-        if (sharedPreferences.getString(context.getString(R.string.my_preferences_key_admin_block), null)== null) {
+        if (sharedPreferences.getString(context.getString(R.string.my_preferences_key_admin_block), "null")== "null") {
             status = false;
         } else {
             status = true;
@@ -47,7 +47,7 @@ public class PreferenceAdminBlock {
 
     public String readPreferencesAdminBlockArea() {
         sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_admin_block), Context.MODE_PRIVATE);
-        return sharedPreferences.getString(context.getString(R.string.preferences_key_pavallion_area), null);
+        return sharedPreferences.getString(context.getString(R.string.preferences_key_pavallion_area), "null");
     }
 
 

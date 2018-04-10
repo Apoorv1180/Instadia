@@ -37,7 +37,7 @@ public class PreferenceWestGallery {
 
     public boolean checkPreferenceWestGallery() {
         boolean status = false;
-        if (sharedPreferences.getString(context.getString(R.string.my_preferences_key_west_gallery), null)== null) {
+        if (sharedPreferences.getString(context.getString(R.string.my_preferences_key_west_gallery), "null")== "null") {
             status = false;
         } else {
             status = true;
@@ -47,7 +47,7 @@ public class PreferenceWestGallery {
 
     public String readPreferencesWestGalleryArea() {
         sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_west_gallery), Context.MODE_PRIVATE);
-        return sharedPreferences.getString(context.getString(R.string.preferences_key_pavallion_area), null);
+        return sharedPreferences.getString(context.getString(R.string.preferences_key_pavallion_area), "null");
     }
 
 

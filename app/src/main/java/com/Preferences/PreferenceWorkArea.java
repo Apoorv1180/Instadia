@@ -49,7 +49,7 @@ public class PreferenceWorkArea {
 
     public String readPreferencesPavallion() {
         sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_work_area), Context.MODE_PRIVATE);
-        return sharedPreferences.getString(context.getString(R.string.preferences_key_pavallion), null);
+        return sharedPreferences.getString(context.getString(R.string.preferences_key_pavallion), "null");
     }
 
     public boolean readPreferencesPavallionOuterPerifery() {

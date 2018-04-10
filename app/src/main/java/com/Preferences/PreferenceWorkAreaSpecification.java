@@ -36,7 +36,7 @@ public class PreferenceWorkAreaSpecification {
 
     public String readPreferencesAreaType() {
         sharedPreferences = context.getSharedPreferences(context.getString(R.string.my_preferences_key_work_area_specification), Context.MODE_PRIVATE);
-        return sharedPreferences.getString(context.getString(R.string.preferences_key_area_type), null);
+        return sharedPreferences.getString(context.getString(R.string.preferences_key_area_type), "null");
     }
 
     public void clearPreferencesWorkAreaSpecification() {

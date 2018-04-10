@@ -23,6 +23,7 @@ public class SaveData {
     String photoUri;
 
 
+
     public SaveData( String date,String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeepingPercentage, String issueDescription,String completionStatus,String photoUri) {
         this.date=date;
         this.userName = userName;
