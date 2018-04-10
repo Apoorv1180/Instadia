@@ -58,7 +58,16 @@ public class LoginActivity extends AppCompatActivity {
         resendOTP=findViewById(R.id.resend_otp_btn);
         saveUserInfo=findViewById(R.id.save_info_btn);
         mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+
+            startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+
+        }
+        else {
             preferenceWorkArea = new PreferenceWorkArea(LoginActivity.this);
 
             mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -130,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-
+        }
 
     }
 
@@ -201,6 +210,26 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private String getUser() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            if((user.getDisplayName() == null) || (user.getDisplayName().isEmpty())) {
+                return "Unknown";
+
+            }
+            else{
+                String name = user.getDisplayName();
+                return name;
+
+            }
+        }
+        else
+            return "Unknown";
+    }
+
 }
 
 

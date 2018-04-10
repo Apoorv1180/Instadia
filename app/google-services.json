@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "516018621987-oi6nema58l7uqunojgcc1f3hs15h76ep.apps.googleusercontent.com",
+          "client_id": "516018621987-bk9vfsomhp6787brlb5dt9faimsdlqif.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.apoorv.dubey.android.instadia",
-            "certificate_hash": "902946de51294dc03f57ba7bbdf90f9f4787af19"
+            "certificate_hash": "967ac158be6c9496f2908f8db390eb959e783049"
           }
         },
         {

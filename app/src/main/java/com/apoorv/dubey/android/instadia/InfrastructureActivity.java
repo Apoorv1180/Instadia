@@ -1,10 +1,22 @@
 package com.apoorv.dubey.android.instadia;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -19,11 +31,18 @@ import com.Preferences.PreferenceWestGallery;
 import com.Preferences.PreferenceWorkArea;
 import com.Preferences.PreferenceWorkAreaSpecification;
 import com.apoorv.dubey.android.model.SaveData;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,6 +58,8 @@ public class InfrastructureActivity extends AppCompatActivity {
     PreferenceWestGallery preferenceWestGallery;
     PreferenceAdminBlock preferenceAdminBlock;
     PreferenceWorkAreaSpecification preferenceWorkAreaSpecification;
+    private StorageReference mStorageReference;
+    Uri downloadUri;
 
     //radio group and button
     //workdone
@@ -56,6 +77,8 @@ public class InfrastructureActivity extends AppCompatActivity {
     ImageView imageView;
     SaveData saveData;
 
+    Button infraSaveButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +92,7 @@ public class InfrastructureActivity extends AppCompatActivity {
         preferenceWorkArea= new PreferenceWorkArea(this);
         imageView = findViewById(R.id.infra_image_view);
         issueDescription=findViewById(R.id.infra_comment_edit_text);
+        infraSaveButton=findViewById(R.id.infra_save_button);
         radioGroup = findViewById(R.id.infra_radio_group);
         selectedId = radioGroup.getCheckedRadioButtonId();
         radioWorkType = findViewById(selectedId);
@@ -79,36 +103,70 @@ public class InfrastructureActivity extends AppCompatActivity {
                 radioWorkType= findViewById(checkedId);
             }
         });
-        saveData = new SaveData();
-        String userName = getUser();
-        saveData.setUserName(userName);
-        saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
-        saveData.setFloor(checkFloor());
-        saveData.setWork_category(preferenceWorkAreaSpecification.readPreferencesAreaType());
-        saveData.setSub_workCategory(radioWorkType.getText().toString());
-        if(issueDescription.getText()!=null){
-            saveData.setIssueDescription(issueDescription.getText().toString());
 
-        }else saveData.setIssueDescription("UNKNOWN");
+        mStorageReference= FirebaseStorage.getInstance().getReference();
 
-        writeData();
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
+
+
+        final String NullValues = "NA";
+        infraSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                saveData = new SaveData();
+                saveData.setChairNumber(NullValues);
+                saveData.setHouseKeepingPercentage(NullValues);
+                saveData.setDate(getBookingTimestamp());
+                String userName = getUser();
+                saveData.setUserName(userName);
+                saveData.setCompletionStatus("PENDING");
+                saveData.setPavallion(NullValues);
+                saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
+                saveData.setFloor(checkFloor());
+                saveData.setWork_category(preferenceWorkAreaSpecification.readPreferencesAreaType());
+                saveData.setSub_workCategory(radioWorkType.getText().toString());
+                if(issueDescription.getText()!=null){
+                    saveData.setIssueDescription(issueDescription.getText().toString());
+
+                }else saveData.setIssueDescription(NullValues);
+                saveData.setPhotoUri(downloadUri.toString());
+                writeData();
+
+            }
+        });
     }
 
     private String checkFloor() {
+        String floor ="";
+        Log.i("TAG",preferenceWorkArea.readPreferencesPavallion().toString()+ preferenceNorthPavallion.readPreferencesNorthPavallionArea().toString());
         switch (preferenceWorkArea.readPreferencesPavallion()){
-            case  "NORTH GALLERY":
-                return preferenceNorthPavallion.readPreferencesNorthPavallionArea();
-            case  "SOUTH GALLERY":
-                return preferenceSouthPavallion.readPreferencesPavallionArea();
+            case  "NORTH PAVALLION":
+                floor= preferenceNorthPavallion.readPreferencesNorthPavallionArea();
+                break;
+            case  "SOUTH PAVALLION":
+                floor= preferenceSouthPavallion.readPreferencesPavallionArea();
+                break;
             case  "EAST GALLERY":
-                return preferenceEastGallery.readPreferencesEastGalleryArea();
+                floor= preferenceEastGallery.readPreferencesEastGalleryArea();
+                break;
             case "WEST GALLERY":
-                return preferenceWestGallery.readPreferencesWestGalleryArea();
+                floor= preferenceWestGallery.readPreferencesWestGalleryArea();
+                break;
             case "ADMINISTRATION BLOCK":
-                return preferenceAdminBlock.readPreferencesAdminBlockArea();
+                floor= preferenceAdminBlock.readPreferencesAdminBlockArea();
+                break;
 
         }
-        return "UNKNOWN";
+        return floor;
     }
 
     private String getUser() {
@@ -128,6 +186,44 @@ public class InfrastructureActivity extends AppCompatActivity {
             }
         else
             return "Unknown";
+    }
+
+    private void openCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            Bitmap bp = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(bp);
+            Uri tempUri = getImageUri(getApplicationContext(), bp);
+            Log.i("URI",tempUri.toString());
+            File finalFile = new File(getRealPathFromURI(tempUri));
+            imageView.setImageURI(Uri.fromFile(finalFile));
+            StorageReference filepath = mStorageReference.child("Photos").child(getBookingTimestamp());
+
+            filepath.putFile(tempUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+
+                    downloadUri = taskSnapshot.getDownloadUrl();
+                    Log.i("DownLoad uri",downloadUri.toString());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+
+
+        }
     }
 
 
@@ -155,18 +251,25 @@ public class InfrastructureActivity extends AppCompatActivity {
         Date dateObj = new Date();
         return dateFormat.format(dateObj);
     }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
 
     private void writeData() {
-       // DatabaseReference myRef = FirebaseDatabase.getInstance().getReferenceFromUrl();
-     //   myRef.setValue(data);
-     //   Toast.makeText(getActivity(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/");
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master");
+        mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(saveData);
+        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
 
-
-        Map<String, SaveData> writeData = new HashMap<>();
-        writeData.put(String.valueOf(System.currentTimeMillis()),saveData);
-        mDatabase.setValue(writeData);
     }
 }

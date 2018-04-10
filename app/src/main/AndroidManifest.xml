@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.apoorv.dubey.android.instadia">
 
-    <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
-    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA"/>
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -67,16 +68,6 @@
             android:parentActivityName=".WorkAreaActivity" />
         <activity android:name=".CheckReportActivity"
             android:parentActivityName=".ProfileActivity"/>
-        <activity android:name=".InfraReport"
-            android:parentActivityName=".CheckReportActivity"/>
-        <activity android:name=".ChairMaintainanceReport"
-            android:parentActivityName=".CheckReportActivity"/>
-        <activity android:name=".ElectricityReport"
-            android:parentActivityName=".CheckReportActivity"/>
-        <activity android:name=".HouseKeepingReport"
-            android:parentActivityName=".CheckReportActivity"/>
-        <activity android:name=".OtherIssueReport"
-            android:parentActivityName=".CheckReportActivity"/>
         <activity android:name=".StockAreaActivity"
             android:parentActivityName=".ProfileActivity"/>
         <activity android:name=".RaiseIssueAreaActivity"

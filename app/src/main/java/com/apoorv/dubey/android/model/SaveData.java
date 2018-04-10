@@ -9,20 +9,22 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class SaveData {
 
-
+    String date;
     String userName;
     String stand;
     String floor;
     String work_category;
+    String chairNumber;
     String sub_workCategory;
     String pavallion;
-    String chairNumber;
-    String houseKeeping;
     String houseKeepingPercentage;
     String issueDescription;
+    String completionStatus;
+    String photoUri;
 
 
-    public SaveData( String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeeping, String houseKeepingPercentage, String issueDescription) {
+    public SaveData( String date,String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeepingPercentage, String issueDescription,String completionStatus,String photoUri) {
+        this.date=date;
         this.userName = userName;
         this.stand = stand;
         this.floor = floor;
@@ -30,15 +32,23 @@ public class SaveData {
         this.sub_workCategory = sub_workCategory;
         this.pavallion = pavallion;
         this.chairNumber = chairNumber;
-        this.houseKeeping = houseKeeping;
+        this.photoUri=photoUri;
         this.houseKeepingPercentage = houseKeepingPercentage;
         this.issueDescription = issueDescription;
+        this.completionStatus=completionStatus;
     }
 
     public SaveData() {
 
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getUserName() {
         return userName;
@@ -80,6 +90,14 @@ public class SaveData {
         this.sub_workCategory = sub_workCategory;
     }
 
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
+    }
+
     public String getPavallion() {
         return pavallion;
     }
@@ -96,13 +114,6 @@ public class SaveData {
         this.chairNumber = chairNumber;
     }
 
-    public String getHouseKeeping() {
-        return houseKeeping;
-    }
-
-    public void setHouseKeeping(String houseKeeping) {
-        this.houseKeeping = houseKeeping;
-    }
 
     public String getHouseKeepingPercentage() {
         return houseKeepingPercentage;
@@ -118,5 +129,13 @@ public class SaveData {
 
     public void setIssueDescription(String issueDescription) {
         this.issueDescription = issueDescription;
+    }
+
+    public String getCompletionStatus() {
+        return completionStatus;
+    }
+
+    public void setCompletionStatus(String completionStatus) {
+        this.completionStatus = completionStatus;
     }
 }

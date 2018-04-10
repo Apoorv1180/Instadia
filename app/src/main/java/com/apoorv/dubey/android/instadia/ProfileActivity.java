@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void report_btn(View view){
-        Intent intent = new Intent(ProfileActivity.this,StockActivity.class);
+        Intent intent = new Intent(ProfileActivity.this,CheckReportActivity.class);
         startActivity(intent);
     }
     public void important_btn(View view){

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,14 +18,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         app:srcCompat="@drawable/camera" />
-    <Button
-        android:id="@+id/chair_main_camera_btn"
-        android:layout_width="200dp"
-        android:background="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:text="Take a picture!" />
+
 
     <EditText
         android:id="@+id/chair_block_editText"
@@ -121,3 +117,4 @@
 
 
 </LinearLayout>
+</ScrollView>
