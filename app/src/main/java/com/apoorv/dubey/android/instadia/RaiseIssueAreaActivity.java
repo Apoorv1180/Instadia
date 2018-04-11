@@ -3,11 +3,15 @@ package com.apoorv.dubey.android.instadia;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +29,7 @@ import android.widget.Toast;
 
 import com.apoorv.dubey.android.Adapter.ImportantIssueAdapter;
 import com.apoorv.dubey.android.model.ImportantIssue;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,14 +94,12 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         importantIssueAdapter.setData(new ArrayList<ImportantIssue>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, VERTICAL, false));
         recyclerView.setAdapter(importantIssueAdapter);
-
+        mStorageReference= FirebaseStorage.getInstance().getReference();
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
         //TODO For reference as to how to show and save
-//        globaRef = FirebaseDatabase.getInstance().getReferenceFromUrl(baseUrl + Constants.importantIssue);
-//        Query myTopPostsQuery = globaRef;
-
-//            // TODO: implement the ChildEventListener methods as documented above
-//            // ...
-//        });
+        viewData();
 
     }
 
@@ -105,19 +108,36 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if(resultCode == RESULT_OK) {
             mProgressBar.setVisibility(View.VISIBLE);
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             imgIssue.setImageBitmap(bp);
             tempUri = getImageUri(getApplicationContext(), bp);
-            Log.i("URI", tempUri.toString());
-            finalFile = new File(getRealPathFromURI(tempUri));
+            Log.i("URI",tempUri.toString());
+            File finalFile = new File(getRealPathFromURI(tempUri));
             imgIssue.setImageURI(Uri.fromFile(finalFile));
+            StorageReference filepath = mStorageReference.child("Photos").child(getBookingTimestamp());
+
+            filepath.putFile(tempUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    mProgressBar.setVisibility(View.GONE);
+
+                    downloadUri = taskSnapshot.getDownloadUrl();
+                    Log.i("DownLoad uri",downloadUri.toString());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    mProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(),"File Cannot Be Uploaded!",Toast.LENGTH_SHORT).show();
+                }
+            });
 
 
         }
     }
-
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -161,39 +181,16 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
             case R.id.btn_save:
                 //TODO add save to firebase call here
                 mProgressBar.setVisibility(View.VISIBLE);
-                mStorageReference = mStorageReference.child("Photos");
-                final ImportantIssue importantIssue = new ImportantIssue();
+                DatabaseReference mDatabase;
+                ImportantIssue importantIssue = new ImportantIssue();
                 importantIssue.setId(String.valueOf(System.currentTimeMillis()));
                 importantIssue.setIssueDescription(edtIssue.getText().toString());
-                Uri uri = Uri.fromFile(finalFile);
-                final StorageReference photoRef = mStorageReference.child(importantIssue.getId());
-                photoRef.putFile(uri).addOnSuccessListener((Activity) context, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        importantIssue.setUrl(taskSnapshot.getDownloadUrl().toString());
-                        Toast.makeText(context, "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                        writeData(importantIssue);
-                    }
-                });
+                importantIssue.setUrl(downloadUri.toString());
 
-                /*StorageReference filepath = mStorageReference.child("Photos").child(getBookingTimestamp());
-
-        filepath.putFile(tempUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                mProgressBar.setVisibility(View.GONE);
-
-                downloadUri = taskSnapshot.getDownloadUrl();
-                Log.i("DownLoad uri",downloadUri.toString());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                mProgressBar.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(),"File Cannot Be Uploaded!",Toast.LENGTH_SHORT).show();
-            }
-        });*/
+                mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue");
+                mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(importantIssue);
+                Toast.makeText(getApplicationContext(),"Saved Successfuly",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,ProfileActivity.class));
                 break;
 
             case R.id.btn_cancel:
@@ -207,39 +204,23 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private void writeData(ImportantIssue importantIssue) {
 
-
-        mProgressBar.setVisibility(View.VISIBLE);
-        DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master/ImportantIssue");
-        mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(importantIssue);
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                importantIssuesList = new ArrayList<>();
-                for (DataSnapshot importantIssue : dataSnapshot.getChildren()) {
-                    importantIssuesList.add(importantIssue.getValue(ImportantIssue.class));
-                }
-                importantIssueAdapter.setData(importantIssuesList);
-                mProgressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), "Data Updated Successfully", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "Data Could Not be Uploaded", Toast.LENGTH_SHORT).show();
-
-            }
-
-
-        });
-    }
 
     private void openCamera() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 0);
+    }
+
+
+
+    private void writeData(ImportantIssue importantIssue) {
+        mProgressBar.setVisibility(View.VISIBLE);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue");
+        mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(importantIssue);
+        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        mProgressBar.setVisibility(View.GONE);
+
     }
 
     private String getBookingTimestamp() {
@@ -249,5 +230,43 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         Date dateObj = new Date();
         return dateFormat.format(dateObj);
     }
+
+    private void viewData() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("ImportantIssue");
+        Log.i("DATABASE",mDatabase.toString());
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                importantIssuesList = new ArrayList<>();
+                for (DataSnapshot issue: dataSnapshot.getChildren()) {
+                    importantIssuesList.add(issue.getValue(ImportantIssue.class));
+                }
+                importantIssueAdapter.setData(importantIssuesList);
+                Log.i("DATABASE","in this loop");
+                mProgressBar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i("DATABASE","in the error loop");
+
+            }
+
+            // ...
+        });
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            }
+        }
+    }
+
 
 }
