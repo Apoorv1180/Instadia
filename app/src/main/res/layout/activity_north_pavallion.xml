@@ -13,7 +13,7 @@
         android:id="@+id/outer_periphery_button"
         android:layout_width="220dp"
         android:layout_height="49dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center"
         android:background="@drawable/outerperriferry"
         android:onClick="work_specification_btn"/>
