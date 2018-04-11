@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,7 +29,11 @@
         android:layout_marginTop="10dp"
         app:srcCompat="@drawable/camera" />
 
-
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
     <EditText
         android:id="@+id/electricity_comment_edit_text"
         android:layout_width="match_parent"
@@ -36,8 +43,8 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/issue_description"
-        android:inputType="textPersonName" />
-
+        android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
     <RadioGroup
         android:id="@+id/electricity_radio_group"
         android:layout_width="match_parent"
@@ -93,12 +100,16 @@
 
     <Button
         android:id="@+id/electricity_save_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textStyle="bold
+"
         android:textColor="@color/colorWhite"
         android:background="@drawable/customborder1"
         android:text="@string/save"
          />
 </LinearLayout>
+</ScrollView>
