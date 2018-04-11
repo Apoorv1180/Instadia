@@ -69,6 +69,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private StorageReference mStorageReference;
     private FirebaseStorage firebaseStorage;
     private Context context;
+    ImportantIssue importantIssue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         importantIssueAdapter.setData(new ArrayList<ImportantIssue>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, VERTICAL, false));
         recyclerView.setAdapter(importantIssueAdapter);
+        importantIssue = new ImportantIssue();
         mStorageReference= FirebaseStorage.getInstance().getReference();
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
@@ -123,9 +125,13 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     mProgressBar.setVisibility(View.GONE);
-
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
+                    importantIssue = new ImportantIssue();
+                    importantIssue.setId(String.valueOf(System.currentTimeMillis()));
+                    importantIssue.setIssueDescription(edtIssue.getText().toString());
+                    importantIssue.setUrl(downloadUri.toString());
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -180,17 +186,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
 
             case R.id.btn_save:
                 //TODO add save to firebase call here
-                mProgressBar.setVisibility(View.VISIBLE);
-                DatabaseReference mDatabase;
-                ImportantIssue importantIssue = new ImportantIssue();
-                importantIssue.setId(String.valueOf(System.currentTimeMillis()));
-                importantIssue.setIssueDescription(edtIssue.getText().toString());
-                importantIssue.setUrl(downloadUri.toString());
-
-                mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue");
-                mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(importantIssue);
-                Toast.makeText(getApplicationContext(),"Saved Successfuly",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this,ProfileActivity.class));
+                writeData();
                 break;
 
             case R.id.btn_cancel:
@@ -213,7 +209,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
 
 
 
-    private void writeData(ImportantIssue importantIssue) {
+    private void writeData() {
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue");
