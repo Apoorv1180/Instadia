@@ -1,109 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/all_background"
-    android:orientation="vertical"
-    tools:context=".HouseKeepingActivity">
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="14dp"
-        android:layout_marginTop="10dp"
-        android:indeterminate="true"
-        android:translationY="7dp"
-        android:visibility="gone"
-        />
+        android:layout_height="match_parent"
+        android:background="@drawable/all_background"
+        android:orientation="vertical"
+        tools:context=".HouseKeepingActivity">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:layout_marginTop="10dp"
+            android:indeterminate="true"
+            android:translationY="7dp"
+            android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/house_keeping_image_view"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        app:srcCompat="@drawable/camera" />
+        <ImageView
+            android:id="@+id/house_keeping_image_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/camera" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="PAVALLION"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_height="wrap_content"
-            android:text="P"
-            android:textColor="#000"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/house_keeping_pavallion_edit_text"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:ems="10"
-            android:textSize="20sp"
-            android:maxLength="1"
-            android:inputType="number" />
-    </LinearLayout>
-
-
-    <EditText
-        android:id="@+id/house_keeping_comment_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:ems="10"
-        android:hint="@string/issue_description"
-        android:inputType="textPersonName" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/house_keeping_cleaning_percentage_text_view"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:ems="10"
-            android:text="@string/cleaning_percentage"
-            android:textSize="18sp" />
-        <Spinner
-            android:id="@+id/percentage_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp" />
-    </LinearLayout>
+            android:orientation="horizontal">
 
-    <RadioGroup
-        android:id="@+id/house_keeping_radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="40dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="PAVALLION"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="P"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/house_keeping_pavallion_edit_text"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:ems="10"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+<android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+            <EditText
+            android:id="@+id/house_keeping_comment_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:ems="10"
+            android:hint="@string/issue_description"
+            android:inputType="text" />
+</android.support.design.widget.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/house_keeping_cleaning_percentage_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:ems="10"
+                android:text="@string/cleaning_percentage"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/percentage_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/house_keeping_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="40dp">
 
 
             <RadioButton
@@ -174,16 +181,19 @@
                 android:textColor="@color/colorWhite" />
 
 
-    </RadioGroup>
+        </RadioGroup>
 
-    <Button
-        android:id="@+id/house_keeping_save_button"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/customborder1"
-        android:text="@string/save"
-        android:textColor="@color/colorWhite" />
-</LinearLayout>
+        <Button
+            android:id="@+id/house_keeping_save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/customborder1"
+            android:text="@string/save"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
 </ScrollView>

@@ -1,134 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/all_background"
-    android:orientation="vertical"
-    tools:context=".ChairMaintainanceActivity">
+    android:layout_height="wrap_content">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="14dp"
-        android:layout_marginTop="10dp"
-        android:indeterminate="true"
-        android:translationY="7dp"
-        android:visibility="gone"
-        />
+        android:layout_height="match_parent"
+        android:background="@drawable/all_background"
+        android:orientation="vertical"
+        tools:context=".ChairMaintainanceActivity">
 
-    <ImageView
-        android:id="@+id/chair_main_image_view"
-        android:layout_width="200dp"
-        android:layout_height="164dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        app:srcCompat="@drawable/camera" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:layout_marginTop="10dp"
+            android:indeterminate="true"
+            android:translationY="7dp"
+            android:visibility="gone" />
 
+        <ImageView
+            android:id="@+id/chair_main_image_view"
+            android:layout_width="200dp"
+            android:layout_height="164dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/camera" />
 
-    <EditText
-        android:id="@+id/chair_block_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:maxLength="1"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:ems="10"
-        android:hint="@string/block"
-        android:inputType="textPersonName"
-        android:textAllCaps="true" />
-
-    <EditText
-        android:id="@+id/chair_seat_number_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:maxLength="3"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:ems="10"
-        android:hint="@string/seat_number"
-        android:inputType="number" />
-
-    <RadioGroup
-        android:id="@+id/chair_radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp">
-
-        <RadioButton
-            android:id="@+id/chair_screw_radio_button"
-            android:layout_width="250dp"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/customborder"
-            android:buttonTint="@color/colorWhite"
-            android:text="@string/screw_fixing"
-            android:textColor="@color/colorWhite" />
+            android:layout_marginTop="40dp"
+            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-        <RadioButton
-            android:id="@+id/chair_chair_repair_radio_button"
-            android:layout_width="250dp"
+            <EditText
+                android:id="@+id/chair_block_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:ems="10"
+                android:hint="@string/block"
+                android:inputType="textPersonName"
+                android:maxLength="1"
+                android:textAllCaps="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/customborder"
-            android:buttonTint="@color/colorWhite"
+            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+            <EditText
+                android:id="@+id/chair_seat_number_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:ems="10"
+                android:hint="@string/seat_number"
+                android:inputType="number"
+                android:maxLength="3" />
+        </android.support.design.widget.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/chair_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp">
+
+            <RadioButton
+                android:id="@+id/chair_screw_radio_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/screw_fixing"
+                android:textColor="@color/colorWhite" />
+
+            <RadioButton
+                android:id="@+id/chair_chair_repair_radio_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/chair_repair"
+                android:textColor="@color/colorWhite" />
+
+            <RadioButton
+                android:id="@+id/chair_seat_number_painting_radio_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/seat_no_painting"
+                android:textColor="@color/colorWhite" />
+
+            <RadioButton
+                android:id="@+id/chair_frame_repair_radio_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/frame_repair"
+                android:textColor="@color/colorWhite" />
+
+            <RadioButton
+                android:id="@+id/chair_other_radio_button"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/customborder"
+                android:buttonTint="@color/colorWhite"
+                android:text="@string/other"
+                android:textColor="@color/colorWhite" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/chair_save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/customborder1"
+            android:text="@string/save"
             android:textColor="@color/colorWhite"
-            android:text="@string/chair_repair"
-             />
-
-        <RadioButton
-            android:id="@+id/chair_seat_number_painting_radio_button"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/customborder"
-            android:buttonTint="@color/colorWhite"
-            android:text="@string/seat_no_painting"
-            android:textColor="@color/colorWhite" />
-
-        <RadioButton
-            android:id="@+id/chair_frame_repair_radio_button"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/customborder"
-            android:buttonTint="@color/colorWhite"
-            android:text="@string/frame_repair"
-            android:textColor="@color/colorWhite" />
-
-        <RadioButton
-            android:id="@+id/chair_other_radio_button"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/customborder"
-            android:buttonTint="@color/colorWhite"
-            android:text="@string/other"
-            android:textColor="@color/colorWhite" />
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/chair_save_button"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/customborder1"
-        android:text="@string/save"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
+            android:textStyle="bold" />
 
 
-</LinearLayout>
+    </LinearLayout>
 </ScrollView>
