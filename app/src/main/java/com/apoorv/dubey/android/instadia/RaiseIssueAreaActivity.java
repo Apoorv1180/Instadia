@@ -6,10 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,13 +25,11 @@ import android.widget.Toast;
 
 import com.apoorv.dubey.android.Adapter.ImportantIssueAdapter;
 import com.apoorv.dubey.android.model.ImportantIssue;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -47,12 +44,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
-
 import static android.support.v7.widget.LinearLayoutManager.VERTICAL;
 
 public class RaiseIssueAreaActivity extends AppCompatActivity implements View.OnClickListener {
+    public ImageButton imgTakePicture;
+    public ImageView imgIssue;
+    File finalFile;
+    Uri downloadUri, tempUri;
     private Button btnAddData;
     private Button btnCancel;
     private ImportantIssueAdapter importantIssueAdapter;
@@ -61,15 +59,12 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private DatabaseReference globaRef;
     private ProgressBar mProgressBar;
     private LinearLayout lnrAddIssue;
-    public ImageButton imgTakePicture;
-    public ImageView imgIssue;
     private EditText edtIssue;
     private Button btnSave;
     private StorageReference mStorageReference;
     private FirebaseStorage firebaseStorage;
-    File finalFile;
     private Context context;
-    Uri downloadUri,tempUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +79,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         edtIssue = findViewById(R.id.edt_issue_description);
         btnCancel = findViewById(R.id.btn_cancel);
         imgTakePicture.setOnClickListener(this);
-        context=RaiseIssueAreaActivity.this;
+        context = RaiseIssueAreaActivity.this;
         btnSave.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         mProgressBar.setVisibility(View.VISIBLE);
@@ -105,17 +100,17 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
 
     }
 
-// TODO: Uncomment this for save imagecode
+    // TODO: Uncomment this for save imagecode
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             mProgressBar.setVisibility(View.VISIBLE);
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             imgIssue.setImageBitmap(bp);
             tempUri = getImageUri(getApplicationContext(), bp);
-            Log.i("URI",tempUri.toString());
+            Log.i("URI", tempUri.toString());
             finalFile = new File(getRealPathFromURI(tempUri));
             imgIssue.setImageURI(Uri.fromFile(finalFile));
 
@@ -143,11 +138,12 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         getMenuInflater().inflate(R.menu.home_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_home_btn) {
-            Intent i = new Intent(RaiseIssueAreaActivity.this,ProfileActivity.class);
+            Intent i = new Intent(RaiseIssueAreaActivity.this, ProfileActivity.class);
             startActivity(i);
             return true;
         }
@@ -171,7 +167,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                 importantIssue.setIssueDescription(edtIssue.getText().toString());
                 Uri uri = Uri.fromFile(finalFile);
                 final StorageReference photoRef = mStorageReference.child(importantIssue.getId());
-                photoRef.putFile(uri).addOnSuccessListener((Activity)context, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                photoRef.putFile(uri).addOnSuccessListener((Activity) context, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         importantIssue.setUrl(taskSnapshot.getDownloadUrl().toString());
@@ -205,7 +201,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.img_take_picture:
-               //TODO take picture here
+                //TODO take picture here
                 openCamera();
                 break;
         }
@@ -240,6 +236,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
 
         });
     }
+
     private void openCamera() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 0);

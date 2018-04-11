@@ -52,6 +52,7 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
         recyclerView.setAdapter(stocksDataAdapter);
 
         // TODO: For reference as to how to store and show
+        viewData();
 /*        globaRef = FirebaseDatabase.getInstance().getReferenceFromUrl(baseUrl + Constants.stocks);
         Query myTopPostsQuery = globaRef;
         myTopPostsQuery.addValueEventListener(new ValueEventListener() {
@@ -96,7 +97,7 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
     @Override
     public void onDialogSaveButtonClicked(Stock stock) {
        //TODO Save data to firebase from here
-        writeData();
+        writeData(stock);
 
     }
 
@@ -112,10 +113,10 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
                 break;
         }
     }
-    private void writeData() {
+    private void viewData() {
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("stocks");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("stock");
         Log.i("DATABASE",mDatabase.toString());
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -131,11 +132,21 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.i("DATABASE","in the error loop");
 
             }
 
             // ...
         });
+
+    }
+    private void writeData(Stock stock) {
+        mProgressBar.setVisibility(View.VISIBLE);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/stock");
+        mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(stock);
+        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        mProgressBar.setVisibility(View.GONE);
 
     }
 }
