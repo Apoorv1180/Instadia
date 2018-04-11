@@ -1,15 +1,18 @@
 package com.apoorv.dubey.android.instadia;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
+    private Boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-   /* public void stock_btn(View view){
-        Intent intent = new Intent(ProfileActivity.this,StockAreaActivity.class);
-        startActivity(intent);
-    }*/
+   
     public void raise_issue_btn(View view){
         Intent intent = new Intent(ProfileActivity.this,RaiseIssueAreaActivity.class);
         startActivity(intent);
@@ -63,6 +63,30 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed() {
+        /*
+         */
+
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 3000);
     }
 
 }

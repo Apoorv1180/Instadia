@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/dialog_background"
+    android:background="@drawable/all_background"
     android:orientation="vertical">
 
     <TextView

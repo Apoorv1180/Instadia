@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -70,6 +71,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private FirebaseStorage firebaseStorage;
     private Context context;
     ImportantIssue importantIssue;
+    private Boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +189,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
             case R.id.btn_save:
                 //TODO add save to firebase call here
                 writeData();
+                startActivity(new Intent(this,RaiseIssueAreaActivity.class));
                 break;
 
             case R.id.btn_cancel:
@@ -220,7 +223,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     }
 
     private String getBookingTimestamp() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getDefault());
         String defaultTimezone = TimeZone.getDefault().getID();
         Date dateObj = new Date();
@@ -262,5 +265,28 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         }
     }
 
+    public void onBackPressed() {
+        /*
+         */
+
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 3000);
+    }
 
 }
