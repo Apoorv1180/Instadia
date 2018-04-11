@@ -6,6 +6,6 @@
     <color name="colorCardView">#F8BBD0</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlue">#03A9F4</color>
-
-
+    <color name="colorCompleted">#AED581</color>
+    <color name="colorPending">#F4511E</color>
 </resources>

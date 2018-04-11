@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.apoorv.dubey.android.Adapter.CustomAdapter;
 import com.apoorv.dubey.android.model.SaveData;
@@ -25,6 +27,8 @@ public class CheckReportActivity extends AppCompatActivity {
     ArrayList<SaveData> saveDataArrayList = new ArrayList<>();
     RecyclerView recyclerView;
     CustomAdapter mAdapter;
+    ProgressBar progressBar;
+    Button btnSHare;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,18 +37,18 @@ public class CheckReportActivity extends AppCompatActivity {
         FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference =    mFirebaseDatabase.getReference().child("master");
 
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        btnSHare = findViewById(R.id.btn_share);
+        progressBar = findViewById(R.id.progress_bar);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         mAdapter = new CustomAdapter(saveDataArrayList,CheckReportActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
-
+        progressBar.setVisibility(View.VISIBLE);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                     Log.v("TAG",""+ childDataSnapshot.getKey()); //displays the key for the node
                     Log.v("TAG",""+ childDataSnapshot.child("stand").getValue());   //gives the value for given keyname
@@ -54,6 +58,7 @@ public class CheckReportActivity extends AppCompatActivity {
 
                     saveDataArrayList.add(saveData);
                     mAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
             @Override
