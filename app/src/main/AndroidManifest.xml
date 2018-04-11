@@ -37,6 +37,9 @@
             android:name=".NorthPavallionActivity"
             android:parentActivityName=".WorkAreaActivity" />
         <activity
+            android:name=".StockActivity"
+            android:parentActivityName=".ProfileActivity" />
+        <activity
             android:name=".SouthPavallionActivity"
             android:parentActivityName=".WorkAreaActivity" />
         <activity

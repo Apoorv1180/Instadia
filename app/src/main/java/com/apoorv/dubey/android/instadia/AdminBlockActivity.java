@@ -25,7 +25,7 @@ public class AdminBlockActivity extends AppCompatActivity {
         switch (view.getId() ){
 
 
-            case R.id.admin_ground_floor_button :
+            case R.id.ground_floor_button :
                 preferenceAdminBlock.writePreferencesAdminBlockArea("GROUND FLOOR");
                 preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
                 break;
