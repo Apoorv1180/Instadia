@@ -31,9 +31,9 @@
         android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="25dp"/>
 <LinearLayout
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -41,16 +41,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+91"
+        android:layout_marginTop="22dp"
         android:textStyle="bold"
         android:textSize="20sp"/>
+<android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
     <EditText
         android:id="@+id/phone_number_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:maxLength="10"
         android:hint="Phone Number"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:maxLength="10" />
+</android.support.design.widget.TextInputLayout>
 
 
 </LinearLayout>
@@ -58,6 +65,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:orientation="horizontal">
     <Button
         android:id="@+id/send_otp_btn"
@@ -78,7 +86,14 @@
         android:layout_height="wrap_content"
         android:text="ReSend Otp" />
 </LinearLayout>
-    <EditText
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+        <EditText
         android:id="@+id/otp_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,13 +101,13 @@
         android:ems="10"
         android:hint="Enter Otp Here"
         android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
     <Button
         android:id="@+id/verify_otp_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:background="@drawable/customborder1"
-        android:textColor="@color/colorWhite"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="Verify otp" />
@@ -102,8 +117,6 @@
         android:layout_height="2dp"
         android:layout_marginTop="3dp"
         android:background="@color/colorPrimaryDark"/>
-
-
     </LinearLayout>
 
 <FrameLayout
