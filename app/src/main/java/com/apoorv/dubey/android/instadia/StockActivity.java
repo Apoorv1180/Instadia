@@ -101,7 +101,7 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
         switch (view.getId())
         {
             case R.id.btn_add:
-                CustomDialogForStocks customDialog = new CustomDialogForStocks(getActivity(),this);
+                CustomDialogForStocks customDialog = new CustomDialogForStocks(this,this);
                 customDialog.setCancelable(false);
                 customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 customDialog.show();
