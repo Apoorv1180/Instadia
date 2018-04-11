@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.apoorv.dubey.android.Adapter.StocksDataAdapter;
 import com.apoorv.dubey.android.Dialogs.CustomDialogForStocks;
@@ -94,6 +96,8 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
     @Override
     public void onDialogSaveButtonClicked(Stock stock) {
        //TODO Save data to firebase from here
+        writeData();
+
     }
 
     @Override
@@ -107,5 +111,31 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
                 customDialog.show();
                 break;
         }
+    }
+    private void writeData() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("stocks");
+        Log.i("DATABASE",mDatabase.toString());
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                stockDataList = new ArrayList<>();
+                for (DataSnapshot stock: dataSnapshot.getChildren()) {
+                    stockDataList.add(stock.getValue(Stock.class));
+                }
+                stocksDataAdapter.setData(stockDataList);
+                Log.i("DATABASE","in this loop");
+                mProgressBar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+            // ...
+        });
+
     }
 }
