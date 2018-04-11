@@ -13,14 +13,15 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:textColor="@color/colorWhite"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/customborder1"
         android:text=" NO results for Now !Please ....
                                   Come Back Later :) "
-        android:textSize="30sp"
-        />
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp" />
 
 
 
