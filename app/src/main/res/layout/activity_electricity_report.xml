@@ -10,14 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ElectricityReport"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
 
         <Button
             android:id="@+id/ac_btn"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="ac"
@@ -25,8 +27,10 @@
 
         <Button
             android:id="@+id/lights_btn"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="lights"
@@ -36,8 +40,10 @@
 
         <Button
             android:id="@+id/fan_btn"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="fan"
@@ -46,8 +52,10 @@
 
         <Button
             android:id="@+id/wiring_btn"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="wiring"
@@ -57,8 +65,10 @@
 
         <Button
             android:id="@+id/any_other_btn"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="Any other"
