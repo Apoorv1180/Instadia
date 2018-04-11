@@ -249,9 +249,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                 Log.i("DATABASE","in the error loop");
 
             }
-
-            // ...
-        });
+            });
 
     }
 

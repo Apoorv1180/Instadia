@@ -1,8 +1,11 @@
 package com.apoorv.dubey.android.instadia;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,30 +53,11 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
         stocksDataAdapter.setData(new ArrayList<Stock>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, VERTICAL,false));
         recyclerView.setAdapter(stocksDataAdapter);
-
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
         // TODO: For reference as to how to store and show
         viewData();
-/*        globaRef = FirebaseDatabase.getInstance().getReferenceFromUrl(baseUrl + Constants.stocks);
-        Query myTopPostsQuery = globaRef;
-        myTopPostsQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                stockDataList = new ArrayList<>();
-                for (DataSnapshot stock: dataSnapshot.getChildren()) {
-                    stockDataList.add(stock.getValue(Stock.class));
-                }
-                stocksDataAdapter.setData(stockDataList);
-                mProgressBar.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-            // ...
-        });*/
-
     }
 
     @Override
@@ -136,7 +120,6 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
 
             }
 
-            // ...
         });
 
     }
@@ -149,4 +132,13 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
         mProgressBar.setVisibility(View.GONE);
 
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            }
+        }
+    }
+
 }
