@@ -37,12 +37,12 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "INSTADIA";
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
-     private PhoneAuthProvider.ForceResendingToken mResendToken;
+    private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private FirebaseAuth mAuth;
-    EditText e1,e2,name,email,organisation;
+    EditText e1, e2, name, email, organisation;
     LinearLayout linearLayout;
-    Button sendOTP, verifyOTP,resendOTP,saveUserInfo;
+    Button sendOTP, verifyOTP, resendOTP, saveUserInfo;
     FrameLayout registrationFrameBtn;
     PreferenceWorkArea preferenceWorkArea;
     private ProgressBar mProgressBar;
@@ -55,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
         e1 = (EditText) findViewById(R.id.phone_number_editText);
         sendOTP = (Button) findViewById(R.id.send_otp_btn);
         e2 = (EditText) findViewById(R.id.otp_editText);
-        verifyOTP = (Button)findViewById(R.id.verify_otp_btn);
-        registrationFrameBtn=findViewById(R.id.registrationFrame);
-        name=findViewById(R.id.name_editText);
-        email=findViewById(R.id.email_editText);
-        organisation=findViewById(R.id.organisation_editText);
-        resendOTP=findViewById(R.id.resend_otp_btn);
-        saveUserInfo=findViewById(R.id.save_info_btn);
-        linearLayout=findViewById(R.id.login_linear_layout);
+        verifyOTP = (Button) findViewById(R.id.verify_otp_btn);
+        registrationFrameBtn = findViewById(R.id.registrationFrame);
+        name = findViewById(R.id.name_editText);
+        email = findViewById(R.id.email_editText);
+        organisation = findViewById(R.id.organisation_editText);
+        resendOTP = findViewById(R.id.resend_otp_btn);
+        saveUserInfo = findViewById(R.id.save_info_btn);
+        linearLayout = findViewById(R.id.login_linear_layout);
         mProgressBar = findViewById(R.id.progressBar);
 
         mAuth = FirebaseAuth.getInstance();
@@ -72,10 +72,9 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
 
-            startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
 
-        }
-        else {
+        } else {
             preferenceWorkArea = new PreferenceWorkArea(LoginActivity.this);
 
             mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -172,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Log.d(TAG, "signInWithCredential:success");
                             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            final String currentUserId= mAuth.getCurrentUser().getUid();
+                            final String currentUserId = mAuth.getCurrentUser().getUid();
                             if (user.getDisplayName() == null) {
                                 // User is signed in
                                 registrationFrameBtn.setVisibility(View.VISIBLE);
@@ -181,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
                                 saveUserInfo.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        if(!TextUtils.isEmpty(name.getText()) && !TextUtils.isEmpty(email.getText()) && !TextUtils.isEmpty(organisation.getText())){
+                                        if (!TextUtils.isEmpty(name.getText()) && !TextUtils.isEmpty(email.getText()) && !TextUtils.isEmpty(organisation.getText())) {
 
                                             DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
@@ -189,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                                             String emailValue = email.getText().toString();
                                             String organisationValue = organisation.getText().toString();
 
-                                            if(ValidationUtils.isValidName(nameValue) && ValidationUtils.isValidEmail(emailValue) && ValidationUtils.isValidName(organisationValue)) {
+                                            if (ValidationUtils.isValidName(nameValue) && ValidationUtils.isValidEmail(emailValue) && ValidationUtils.isValidName(organisationValue)) {
                                                 user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(nameValue).build());
                                                 user.updateEmail(emailValue);
 
@@ -206,27 +205,26 @@ public class LoginActivity extends AppCompatActivity {
                                                 email.setText(null);
                                                 organisation.setText(null);
                                                 startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-                                            }
-                                            else{
-                                                Toast.makeText(LoginActivity.this,"Please Enter All values Correctly",Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(LoginActivity.this, "Please Enter All values Correctly", Toast.LENGTH_SHORT).show();
 
                                             }
 
-                                        }else {
-                                            Toast.makeText(LoginActivity.this,"Please Enter All the values",Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, "Please Enter All the values", Toast.LENGTH_SHORT).show();
 
                                         }
                                     }
                                 });
-                                Toast.makeText(LoginActivity.this,"Please Register YourSelf",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Please Register YourSelf", Toast.LENGTH_SHORT).show();
 
                             } else {
                                 // No user information accepted till now
                                 registrationFrameBtn.setVisibility(View.INVISIBLE);
                                 linearLayout.setVisibility(View.VISIBLE);
 
-                                startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
-                                Toast.makeText(LoginActivity.this,"Verification Done",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                                Toast.makeText(LoginActivity.this, "Verification Done", Toast.LENGTH_SHORT).show();
                             }
 
                             // ...
@@ -235,7 +233,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                                 registrationFrameBtn.setVisibility(View.INVISIBLE);
-                                Toast.makeText(LoginActivity.this,"Invalid Verification",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Invalid Verification", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
