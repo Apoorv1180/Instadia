@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/all_background"
-    tools:context="com.apoorv.dubey.android.instadia.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.apoorv.dubey.android.instadia.LoginActivity">
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -15,77 +16,80 @@
         android:layout_marginTop="10dp"
         android:indeterminate="true"
         android:translationY="7dp"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/login_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="LOGIN"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="25dp"/>
-<LinearLayout
-    android:layout_marginTop="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+91"
-        android:layout_marginTop="22dp"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
-<android.support.design.widget.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-    <EditText
-        android:id="@+id/phone_number_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        android:maxLength="10" />
-</android.support.design.widget.TextInputLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="LOGIN"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="+91"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                <EditText
+                    android:id="@+id/phone_number_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Phone Number"
+                    android:inputType="phone"
+                    android:maxLength="10" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/send_otp_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/customborder1"
+                android:text="Send Otp" />
 
 
-</LinearLayout>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:orientation="horizontal">
-    <Button
-        android:id="@+id/send_otp_btn"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/customborder1"
-        android:layout_height="wrap_content"
-        android:text="Send Otp" />
-
-
-    <Button
-        android:id="@+id/resend_otp_btn"
-        android:layout_width="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:background="@drawable/customborder1"
-        android:layout_height="wrap_content"
-        android:text="ReSend Otp" />
-</LinearLayout>
+            <Button
+                android:id="@+id/resend_otp_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/customborder1"
+                android:text="ReSend Otp" />
+        </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -93,93 +97,93 @@
             android:layout_marginTop="22dp"
             app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-        <EditText
-        android:id="@+id/otp_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:ems="10"
-        android:hint="Enter Otp Here"
-        android:inputType="number" />
+            <EditText
+                android:id="@+id/otp_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:ems="10"
+                android:hint="Enter Otp Here"
+                android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
-    <Button
-        android:id="@+id/verify_otp_btn"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@drawable/customborder1"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Verify otp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="3dp"
-        android:background="@color/colorPrimaryDark"/>
-    </LinearLayout>
-
-<FrameLayout
-    android:layout_width="match_parent"
-    android:id="@+id/registrationFrame"
-    android:layout_height="wrap_content"
-    android:visibility="invisible">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/userinfo"
-            android:layout_height="wrap_content"
-            android:text="---USER INFORMATION---"
-            android:layout_gravity="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-
-        <EditText
-            android:id="@+id/name_editText"
-            android:layout_width="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Enter Your Name"
-            />
-
-        <EditText
-            android:id="@+id/email_editText"
-            android:layout_width="match_parent"
-            android:layout_marginTop="4dp"
-            android:inputType="textEmailAddress"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email Id"
-             />
-
-        <EditText
-            android:id="@+id/organisation_editText"
-            android:layout_width="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="ORGANISATION"
-             />
 
         <Button
-            android:id="@+id/save_info_btn"
-            android:layout_width="match_parent"
-            android:textColor="@color/colorWhite"
+            android:id="@+id/verify_otp_btn"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
             android:background="@drawable/customborder1"
-            android:text="Save" />
+            android:gravity="center"
+            android:text="Verify otp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/colorPrimaryDark" />
     </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/registrationFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="---USER INFORMATION---"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/name_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:ems="10"
+                    android:hint="Enter Your Name"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/email_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:ems="10"
+                    android:hint="Email Id"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/organisation_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:ems="10"
+                    android:hint="ORGANISATION"
+                    android:inputType="text" />
+
+                <Button
+                    android:id="@+id/save_info_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customborder1"
+                    android:text="Save"
+                    android:textColor="#000" />
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
 </LinearLayout>
