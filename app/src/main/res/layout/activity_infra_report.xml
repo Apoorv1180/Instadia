@@ -10,14 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".InfraReport"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
 
         <Button
             android:id="@+id/civil_btn"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="civil"
@@ -26,8 +28,10 @@
 
         <Button
             android:id="@+id/lift_btn"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="lift"
@@ -36,8 +40,10 @@
 
         <Button
             android:id="@+id/plumbing_btn"
-            android:layout_width="220dp"
-            android:layout_height="49dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="plumbing"
@@ -45,8 +51,10 @@
 
         <Button
             android:id="@+id/drainage_btn"
-            android:layout_width="222dp"
+            android:layout_width="250dp"
             android:layout_height="50dp"
+            android:background="@drawable/customborder1"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:text="Drainage"
