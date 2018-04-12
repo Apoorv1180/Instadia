@@ -241,13 +241,19 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue/");
+        mDatabase.orderByChild("isPending").equalTo(true);
         Log.i("DATABASE",mDatabase.toString());
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 importantIssuesList = new ArrayList<>();
                 for (DataSnapshot issue: dataSnapshot.getChildren()) {
-                     importantIssuesList.add(issue.getValue(ImportantIssue.class));
+                    ImportantIssue tempIssue =  issue.getValue(ImportantIssue.class);
+                    if (tempIssue.isPending())
+                    {
+                        importantIssuesList.add(tempIssue);
+                    }
+
                 }
                 importantIssueAdapter.setData(importantIssuesList);
                 Log.i("DATABASE","in this loop");
