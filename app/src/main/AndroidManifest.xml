@@ -2,13 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.apoorv.dubey.android.instadia">
 
-
-    <uses-permission-sdk-23 android:name="android.permission.CAMERA"/>
-    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon_2"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -18,17 +17,15 @@
         <activity
             android:name=".SplashScreen"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".LoginActivity"/>
-
+        <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
         <activity
             android:name=".WorkAreaActivity"
@@ -69,12 +66,16 @@
         <activity
             android:name=".AnyOtherIssueActivity"
             android:parentActivityName=".WorkAreaActivity" />
-        <activity android:name=".CheckReportActivity"
-            android:parentActivityName=".ProfileActivity"/>
-        <activity android:name=".StockAreaActivity"
-            android:parentActivityName=".ProfileActivity"/>
-        <activity android:name=".RaiseIssueAreaActivity"
-            android:parentActivityName=".ProfileActivity"/>
+        <activity
+            android:name=".CheckReportActivity"
+            android:parentActivityName=".ProfileActivity" />
+        <activity
+            android:name=".StockAreaActivity"
+            android:parentActivityName=".ProfileActivity" />
+        <activity
+            android:name=".RaiseIssueAreaActivity"
+            android:parentActivityName=".ProfileActivity" />
+
         <provider
             android:name=".GenericFileProvider"
             android:authorities="${applicationId}.provider"
@@ -82,8 +83,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity android:name=".SingleReportViewItem"></activity>
     </application>
 
 </manifest>
