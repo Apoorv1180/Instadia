@@ -21,10 +21,9 @@ public class SaveData {
     String issueDescription;
     String completionStatus;
     String photoUri;
+    boolean isPending;
 
-
-
-    public SaveData( String date,String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeepingPercentage, String issueDescription,String completionStatus,String photoUri) {
+    public SaveData(String date, String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeepingPercentage, String issueDescription, String completionStatus, String photoUri) {
         this.date=date;
         this.userName = userName;
         this.stand = stand;
@@ -139,4 +138,13 @@ public class SaveData {
     public void setCompletionStatus(String completionStatus) {
         this.completionStatus = completionStatus;
     }
+
+    public boolean isPending() {
+        return isPending;
+    }
+
+    public void setPending(boolean pending) {
+        isPending = pending;
+    }
+
 }

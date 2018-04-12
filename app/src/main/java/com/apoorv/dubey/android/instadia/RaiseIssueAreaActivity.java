@@ -253,7 +253,6 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                     {
                         importantIssuesList.add(tempIssue);
                     }
-
                 }
                 importantIssueAdapter.setData(importantIssuesList);
                 Log.i("DATABASE","in this loop");
