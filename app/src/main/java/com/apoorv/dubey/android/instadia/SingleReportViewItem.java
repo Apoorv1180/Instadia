@@ -3,13 +3,23 @@ package com.apoorv.dubey.android.instadia;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class SingleReportViewItem extends AppCompatActivity {
 
     ImageView imageView;
-    TextView tvusername,tvdate,tvstand,tvproblemTYpe,tvproblemPlace,tvDescription;
+    TextView tvusername, tvdate, tvstand, tvproblemTYpe, tvproblemPlace, tvDescription;
+    URL url;
+    Uri uri;
+
     //intent.putExtra("date",saveData.getDate());
     //            intent.putExtra("userName",saveData.getUserName());
     //            intent.putExtra("stand",saveData.getStand());
@@ -25,13 +35,13 @@ public class SingleReportViewItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_report_view_item);
-        tvusername= findViewById(R.id.username);
-        tvdate=findViewById(R.id.date);
-        tvstand=findViewById(R.id.stand);
-        tvproblemPlace=findViewById(R.id.problem_place);
-        tvproblemTYpe=findViewById(R.id.problem_type);
-        tvDescription=findViewById(R.id.description);
-        imageView=findViewById(R.id.image_view);
+        tvusername = findViewById(R.id.username);
+        tvdate = findViewById(R.id.date);
+        tvstand = findViewById(R.id.stand);
+        tvproblemPlace = findViewById(R.id.problem_place);
+        tvproblemTYpe = findViewById(R.id.problem_type);
+        tvDescription = findViewById(R.id.description);
+        imageView = findViewById(R.id.image_view);
 
 
         tvusername.setText(getIntent().getStringExtra("userName"));
@@ -39,13 +49,27 @@ public class SingleReportViewItem extends AppCompatActivity {
         tvstand.setText(getIntent().getStringExtra("stand"));
         tvproblemPlace.setText(getIntent().getStringExtra("work_category"));
         tvproblemTYpe.setText(getIntent().getStringExtra("work_sub_category")
-                +"\n"
-                +getIntent().getStringExtra("pavilion")
-                +"\n"
-                +getIntent().getStringExtra("houseKeepingPercentage"));
+                + "\n"
+                + getIntent().getStringExtra("pavilion")
+                + "\n"
+                + getIntent().getStringExtra("houseKeepingPercentage"));
         tvDescription.setText(getIntent().getStringExtra("issuedescription"));
-        Uri uri = Uri.parse(getIntent().getStringExtra("photouri"));
-        imageView.setImageURI(uri);
+        if (!getIntent().getStringExtra("photouri").isEmpty()) {
+            try {
+                String strurl = getIntent().getStringExtra("photouri");
+                 url = new URL(strurl);
+                 uri = Uri.parse(url.toURI().toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            Log.i("URI", uri.toString());
+            imageView.setImageURI(uri);
+
+        } else
+            imageView.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.app_icon_2));
+
 
     }
 }
