@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -51,11 +52,12 @@ import java.util.TimeZone;
 
 import static android.support.v7.widget.LinearLayoutManager.VERTICAL;
 
-public class RaiseIssueAreaActivity extends AppCompatActivity implements View.OnClickListener {
+public class RaiseIssueAreaActivity extends AppCompatActivity implements View.OnClickListener,ImportantIssueAdapter.EditData {
     public ImageButton imgTakePicture;
     public ImageView imgIssue;
     File finalFile;
     Uri downloadUri, tempUri;
+    private String finalDownLoadUrl = "";
     private Button btnAddData;
     private Button btnCancel;
     private ImportantIssueAdapter importantIssueAdapter;
@@ -70,6 +72,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private FirebaseStorage firebaseStorage;
     private Context context;
     ImportantIssue importantIssue;
+    private Boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +94,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         mProgressBar.setVisibility(View.VISIBLE);
         btnAddData.setOnClickListener(this);
         firebaseStorage = FirebaseStorage.getInstance();
-        importantIssueAdapter = new ImportantIssueAdapter(this, new ArrayList<ImportantIssue>());
+        importantIssueAdapter = new ImportantIssueAdapter(this, new ArrayList<ImportantIssue>(),this);
         importantIssueAdapter.setData(new ArrayList<ImportantIssue>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, VERTICAL, false));
         recyclerView.setAdapter(importantIssueAdapter);
@@ -127,11 +130,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                     mProgressBar.setVisibility(View.GONE);
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
-                    importantIssue = new ImportantIssue();
-                    importantIssue.setId(String.valueOf(System.currentTimeMillis()));
-                    importantIssue.setIssueDescription(edtIssue.getText().toString());
-                    importantIssue.setUrl(downloadUri.toString());
-
+                    finalDownLoadUrl = downloadUri.toString();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -207,20 +206,31 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         startActivityForResult(intent, 0);
     }
 
-
-
     private void writeData() {
         mProgressBar.setVisibility(View.VISIBLE);
+        importantIssue = new ImportantIssue();
+        importantIssue.setId(String.valueOf(System.currentTimeMillis()));
+        importantIssue.setIssueDescription(edtIssue.getText().toString());
+        importantIssue.setUrl(finalDownLoadUrl);
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue");
-        mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(importantIssue);
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue/"+importantIssue.getId());
+        mDatabase.setValue(importantIssue);
+        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        mProgressBar.setVisibility(View.GONE);
+        lnrAddIssue.setVisibility(View.GONE);
+
+    }
+    private void writeData(ImportantIssue issue) {
+        mProgressBar.setVisibility(View.VISIBLE);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue/"+issue.getId());
+        mDatabase.setValue(issue);
         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
         mProgressBar.setVisibility(View.GONE);
 
     }
-
     private String getBookingTimestamp() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
         dateFormat.setTimeZone(TimeZone.getDefault());
         String defaultTimezone = TimeZone.getDefault().getID();
         Date dateObj = new Date();
@@ -230,14 +240,14 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private void viewData() {
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("ImportantIssue");
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue/");
         Log.i("DATABASE",mDatabase.toString());
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 importantIssuesList = new ArrayList<>();
                 for (DataSnapshot issue: dataSnapshot.getChildren()) {
-                    importantIssuesList.add(issue.getValue(ImportantIssue.class));
+                     importantIssuesList.add(issue.getValue(ImportantIssue.class));
                 }
                 importantIssueAdapter.setData(importantIssuesList);
                 Log.i("DATABASE","in this loop");
@@ -262,5 +272,44 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         }
     }
 
+    public void onBackPressed() {
+        /*
+         */
 
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 3000);
+    }
+
+    @Override
+    public void editUserData(ImportantIssue data) {
+              writeData(data);
+    }
+
+    @Override
+    public void deleteUserData(int pos) {
+        deleteData(importantIssuesList.get(pos));
+    }
+
+    private void deleteData(ImportantIssue issue) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue/"+issue.getId());
+        mDatabase.removeValue();
+
+    }
 }

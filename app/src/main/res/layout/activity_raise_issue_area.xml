@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#fafafa"
+    android:background="@drawable/all_background"
     android:animateLayoutChanges="true"
     android:layout_height="match_parent">
 
@@ -32,7 +32,7 @@
         android:padding="20dp"
         android:visibility="gone"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@drawable/dialog_background"
+        android:background="@drawable/all_background"
         android:orientation="vertical">
 
         <TextView

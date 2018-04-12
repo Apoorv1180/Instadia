@@ -105,8 +105,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:textStyle="bold
-"
+        android:textStyle="bold"
         android:textColor="@color/colorWhite"
         android:background="@drawable/customborder1"
         android:text="@string/save"

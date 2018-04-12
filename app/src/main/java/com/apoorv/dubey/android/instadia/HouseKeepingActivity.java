@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -65,6 +66,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
     PreferenceWorkAreaSpecification preferenceWorkAreaSpecification;
     private StorageReference mStorageReference;
     private ImageView houseKeeping_image_view;
+    private Boolean doubleBackToExitPressedOnce = false;
     RadioGroup radioGroup;
     RadioButton radioWorkType;
     Uri downloadUri;
@@ -95,6 +97,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
         preferenceSouthPavallion= new PreferenceSouthPavallion(this);
         houseKeeping_image_view= findViewById(R.id.house_keeping_image_view);
         pavallion=findViewById(R.id.house_keeping_pavallion_edit_text);
+        mProgressBar=findViewById(R.id.progressBar);
         issueDescription=findViewById(R.id.house_keeping_comment_edit_text);
         houseKeepingSaveButton=findViewById(R.id.house_keeping_save_button);
         radioGroup=findViewById(R.id.house_keeping_radio_group);
@@ -292,7 +295,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
     }
 
     private String getBookingTimestamp() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
         dateFormat.setTimeZone(TimeZone.getDefault());
         String defaultTimezone = TimeZone.getDefault().getID();
         Date dateObj = new Date();
@@ -317,6 +320,32 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
             }
         }
+
+
+    }
+
+    public void onBackPressed() {
+        /*
+         */
+
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 3000);
     }
 
 
