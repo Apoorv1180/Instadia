@@ -259,7 +259,7 @@ public class InfrastructureActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     private String getBookingTimestamp() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
         dateFormat.setTimeZone(TimeZone.getDefault());
         String defaultTimezone = TimeZone.getDefault().getID();
         Date dateObj = new Date();

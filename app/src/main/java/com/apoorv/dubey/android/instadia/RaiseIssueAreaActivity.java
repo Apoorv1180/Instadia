@@ -215,7 +215,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private void writeData() {
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue");
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master/ImportantIssue");
         mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(importantIssue);
         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
         mProgressBar.setVisibility(View.GONE);
@@ -223,7 +223,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     }
 
     private String getBookingTimestamp() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
         dateFormat.setTimeZone(TimeZone.getDefault());
         String defaultTimezone = TimeZone.getDefault().getID();
         Date dateObj = new Date();

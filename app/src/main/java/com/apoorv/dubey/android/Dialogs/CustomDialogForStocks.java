@@ -11,6 +11,11 @@ import android.widget.EditText;
 import com.apoorv.dubey.android.instadia.R;
 import com.apoorv.dubey.android.model.Stock;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 
 public class CustomDialogForStocks extends Dialog implements
         android.view.View.OnClickListener {
@@ -54,6 +59,7 @@ public class CustomDialogForStocks extends Dialog implements
                 stock.setId(String.valueOf(System.currentTimeMillis()));
                 stock.setVendor(edtName.getText().toString());
                 stock.setItem(edtItem.getText().toString());
+                stock.setDate(getBookingTimestamp());
                 stock.setInQuantity(Integer.parseInt(edtInQuantity.getText().toString()));
                 stock.setOutQuantity(Integer.parseInt(edtOutQuantity.getText().toString()));
                 dialogSaveClicked.onDialogSaveButtonClicked(stock);
@@ -65,6 +71,14 @@ public class CustomDialogForStocks extends Dialog implements
                 break;
         }
         dismiss();
+    }
+
+    private String getBookingTimestamp() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+        dateFormat.setTimeZone(TimeZone.getDefault());
+        String defaultTimezone = TimeZone.getDefault().getID();
+        Date dateObj = new Date();
+        return dateFormat.format(dateObj);
     }
 
     public interface DialogSaveClickedListener

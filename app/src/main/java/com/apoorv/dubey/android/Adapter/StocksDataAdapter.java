@@ -58,6 +58,7 @@ public class StocksDataAdapter extends RecyclerView.Adapter<StocksDataAdapter.Vi
     }
 
     private void initializeViews(Stock stock, ViewHolder holder) {
+        holder.tvDate.setText(stock.getDate());
         holder.tvName.setText(stock.getVendor());
         holder.tvItem.setText(stock.getItem());
         holder.tvInQuantity.setText(String.valueOf(stock.getInQuantity()));
@@ -65,6 +66,7 @@ public class StocksDataAdapter extends RecyclerView.Adapter<StocksDataAdapter.Vi
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvDate;
         private TextView tvName;
         private TextView tvItem;
         private TextView tvInQuantity;
@@ -72,6 +74,7 @@ public class StocksDataAdapter extends RecyclerView.Adapter<StocksDataAdapter.Vi
 
         public ViewHolder(View view) {
             super(view);
+            tvDate= view.findViewById(R.id.tv_date);
             tvName =  view.findViewById(R.id.tv_name);
             tvItem =  view.findViewById(R.id.tv_item);
             tvInQuantity =  view.findViewById(R.id.tv_in_quantity);

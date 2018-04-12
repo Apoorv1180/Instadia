@@ -6,6 +6,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class Stock {
     private String id;
     private String vendorName;
+    private String date;
     private String item;
     private int inQuantity;
     private int outQuantity;
@@ -44,6 +45,14 @@ public class Stock {
 
     public String getId() {
         return id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setId(String id) {
