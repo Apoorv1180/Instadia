@@ -2,6 +2,9 @@ package com.apoorv.dubey.android.instadia;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.net.Uri;
+import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,14 +18,24 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.apoorv.dubey.android.Adapter.CustomAdapter;
+import com.apoorv.dubey.android.CSVUtils.CSVWriters;
+import com.apoorv.dubey.android.CSVUtils.JsonFlattener;
 import com.apoorv.dubey.android.model.SaveData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class CheckReportActivity extends AppCompatActivity {
 
@@ -32,6 +45,8 @@ public class CheckReportActivity extends AppCompatActivity {
     ProgressBar progressBar;
     Button btnSHare;
     private Boolean doubleBackToExitPressedOnce = false;
+    private File path;
+    private String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +64,25 @@ public class CheckReportActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
         progressBar.setVisibility(View.VISIBLE);
+        btnSHare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                generateCSV();
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"apoorv111221cse@gmail.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "MyFusion Match Maintainence CSV");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi,please find the attachment.");
+                File file = new File(path, name);
+                if (!file.exists() || !file.canRead()) {
+                    return;
+                }
+                Uri uri = FileProvider.getUriForFile(CheckReportActivity.this, getApplicationContext().getPackageName() + ".provider", file);
+                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"));
+            }
+        });
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -69,14 +103,67 @@ public class CheckReportActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
     }
+    private void generateCSV() {
+        Gson gson = new Gson();
+        String reqJson= gson.toJson(saveDataArrayList);
 
+        JsonFlattener parser = new JsonFlattener();
+        CSVWriters writer = new CSVWriters();
 
+        List<Map<String, String>> flatJson = null;
+        //to this path add a new directory path and create new App dir (InstroList) in /documents Dir
+
+        try {
+            flatJson = parser.parseJson(reqJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            String output = writer.writeAsCSV(flatJson,"");
+            path =
+                    Environment.getExternalStoragePublicDirectory
+                            (
+                                    //Environment.DIRECTORY_PICTURES
+                                    Environment.DIRECTORY_DCIM + "/CSV/"
+                            );
+            name = System.currentTimeMillis()+"MyFusion.csv";
+            writeToFile(output,path,name);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void writeToFile(String data,File path,String name)
+    {
+        // Get the directory for the user's public pictures directory.
+        // Make sure the path directory exists.
+        if(!path.exists())
+        {
+            // Make it, if it doesn't exit
+            path.mkdirs();
+        }
+
+        final File file = new File(path,name);
+
+        // Save your stream, don't forget to flush() it before closing it.
+
+        try
+        {
+            file.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(file);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(data);
+
+            myOutWriter.close();
+
+            fOut.flush();
+            fOut.close();
+        }
+        catch (IOException e)
+        {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_menu, menu);
