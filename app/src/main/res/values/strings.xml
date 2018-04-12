@@ -101,4 +101,13 @@
         <item> 100% </item>
     </string-array>
 
+    <string-array name="search_array">
+        <item>--Select Search Criteria--</item>
+        <item>INFRASTRUCTURE</item>
+        <item>CHAIR MAINTAINANCE</item>
+        <item>ELECTRICITY</item>
+        <item>HOUSE KEEPING</item>
+        <item>OTHER ISSUES</item>
+
+    </string-array>
 </resources>

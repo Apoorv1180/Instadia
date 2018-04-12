@@ -13,8 +13,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.apoorv.dubey.android.Adapter.CustomAdapter;
@@ -37,24 +41,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CheckReportActivity extends AppCompatActivity {
+public class CheckReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ArrayList<SaveData> saveDataArrayList = new ArrayList<>();
     RecyclerView recyclerView;
-    CustomAdapter mAdapter;
+    CustomAdapter mAdapter,customAdapter,customAdapter1;
     ProgressBar progressBar;
     Button btnSHare;
     private Boolean doubleBackToExitPressedOnce = false;
     private File path;
     private String name;
+    Spinner spinner;
+    ArrayList<SaveData> saveDataArrayList1 = new ArrayList<>();
+    ArrayList<SaveData> saveDataArrayList2 = new ArrayList<>();
+    FirebaseDatabase mFirebaseDatabase;
+    DatabaseReference databaseReference;
+    boolean flag =false;
+
+    String text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_report);
 
-        FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference =    mFirebaseDatabase.getReference().child("master");
-
+         mFirebaseDatabase = FirebaseDatabase.getInstance();
+         databaseReference =    mFirebaseDatabase.getReference().child("master");
+        spinner = findViewById(R.id.search_spinner);
+        spinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.search_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         btnSHare = findViewById(R.id.btn_share);
         progressBar = findViewById(R.id.progress_bar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -64,6 +82,7 @@ public class CheckReportActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
         progressBar.setVisibility(View.VISIBLE);
+        Log.i("LOOP3","iNTHIS LOOP");
         btnSHare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,5 +221,36 @@ public class CheckReportActivity extends AppCompatActivity {
                 doubleBackToExitPressedOnce = false;
             }
         }, 3000);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        text = item;
+
+        customAdapter=new CustomAdapter(saveDataArrayList1,this);
+        Log.i("LOOP1", "iNTHIS LOOP");
+
+    saveDataArrayList1.clear();
+        for(int i=0;i<saveDataArrayList.size();i++) {
+            if (saveDataArrayList.get(i).getWork_category().contains(item)) {
+                flag = true;
+                saveDataArrayList1.add(saveDataArrayList.get(i));
+            }
+        }
+
+        if (!flag) {
+            recyclerView.setAdapter(mAdapter);
+        } else
+            recyclerView.setAdapter(customAdapter);
+        }
+
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Log.i("LOOP","iNTHIS LOOP");
+          //  mAdapter.notifyDataSetChanged();
+           // recyclerView.setAdapter(mAdapter);
     }
 }
