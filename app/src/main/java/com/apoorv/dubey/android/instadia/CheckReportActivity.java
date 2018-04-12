@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.apoorv.dubey.android.Adapter.CustomAdapter;
 import com.apoorv.dubey.android.CSVUtils.CSVWriters;
 import com.apoorv.dubey.android.CSVUtils.JsonFlattener;
+import com.apoorv.dubey.android.model.ImportantIssue;
 import com.apoorv.dubey.android.model.SaveData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CheckReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CheckReportActivity extends AppCompatActivity implements CustomAdapter.EditData,AdapterView.OnItemSelectedListener {
 
     ArrayList<SaveData> saveDataArrayList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -77,7 +78,7 @@ public class CheckReportActivity extends AppCompatActivity implements AdapterVie
         progressBar = findViewById(R.id.progress_bar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        mAdapter = new CustomAdapter(saveDataArrayList,CheckReportActivity.this);
+        mAdapter = new CustomAdapter(saveDataArrayList,CheckReportActivity.this, (CustomAdapter.EditData) CheckReportActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
@@ -199,6 +200,24 @@ public class CheckReportActivity extends AppCompatActivity implements AdapterVie
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void editUserData(SaveData data) {
+        //TODO savedatahere
+      //  writeData(data);
+    }
+
+    @Override
+    public void deleteUserData(int pos) {
+        deleteData(saveDataArrayList.get(pos));
+    }
+
+    private void deleteData(SaveData data) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue/");
+        mDatabase.removeValue();
+
+    }
     public void onBackPressed() {
         /*
          */
@@ -228,7 +247,7 @@ public class CheckReportActivity extends AppCompatActivity implements AdapterVie
         String item = parent.getItemAtPosition(position).toString();
         text = item;
 
-        customAdapter=new CustomAdapter(saveDataArrayList1,this);
+        customAdapter=new CustomAdapter(saveDataArrayList1,this,(CustomAdapter.EditData) CheckReportActivity.this);
         Log.i("LOOP1", "iNTHIS LOOP");
 
     saveDataArrayList1.clear();

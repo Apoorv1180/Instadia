@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.apoorv.dubey.android.instadia.R;
 import com.apoorv.dubey.android.instadia.SingleReportViewItem;
+import com.apoorv.dubey.android.model.ImportantIssue;
 import com.apoorv.dubey.android.model.SaveData;
 
 import java.util.ArrayList;
@@ -22,12 +23,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private List<SaveData> saveDataList;
     Context context;
+    EditData editData;
 
 
 
-    public CustomAdapter(List<SaveData> saveDataList, Context context) {
+
+    public CustomAdapter(List<SaveData> saveDataList, Context context,EditData editData) {
         this.saveDataList = saveDataList;
         this.context = context;
+        this.editData = editData;
     }
 
     @Override
@@ -71,7 +75,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView date,userName,stand,issue;
-        public Button completionStatus;
+        public Button completionStatus,btnDelete;
         List<SaveData> saveDataArrayList= new ArrayList<>();
         Context context;
 
@@ -85,6 +89,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             stand= view.findViewById(R.id.area_block_number);
             issue=view.findViewById(R.id.issue);
             completionStatus=view.findViewById(R.id.completionStatus);
+            btnDelete = view.findViewById(R.id.btn_delete);
+            completionStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!completionStatus.getText().toString().equals("COMPLETED"))
+                    {
+                        SaveData saveData = saveDataList.get(getAdapterPosition());
+                        saveData.setPending(false);
+                        editData.editUserData(saveData);
+
+                    }
+                }
+            });
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                       editData.deleteUserData(getAdapterPosition());
+                }
+            });
         }
 
         @Override
@@ -106,6 +129,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             this.context.startActivity(intent);
 
         }
+    }
+    public interface EditData
+    {
+        void editUserData(SaveData data);
+        void deleteUserData(int pos);
     }
 
 }

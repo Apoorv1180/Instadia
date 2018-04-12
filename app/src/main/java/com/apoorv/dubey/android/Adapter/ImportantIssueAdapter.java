@@ -101,7 +101,7 @@ public class ImportantIssueAdapter extends RecyclerView.Adapter<ImportantIssueAd
             btnMarkComplete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (btnMarkComplete.getText().toString() != "COMPLETED")
+                    if (!btnMarkComplete.getText().toString().equals("COMPLETED"))
                     {
                         ImportantIssue importantIssue = objects.get(getAdapterPosition());
                         importantIssue.setPending(false);
