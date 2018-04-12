@@ -4,9 +4,18 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class ImportantIssue {
-    private String id;
-    private String url;
-    private String issueDescription;
+    private String id = "";
+    private String url = "";
+    private String issueDescription = "";
+    private boolean isPending = true;
+
+    public boolean isPending() {
+        return isPending;
+    }
+
+    public void setPending(boolean pending) {
+        isPending = pending;
+    }
 
     public String getUrl() {
         return url;
