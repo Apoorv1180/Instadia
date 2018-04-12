@@ -1,5 +1,6 @@
 package com.apoorv.dubey.android.instadia;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -33,6 +34,18 @@ public class SingleReportViewItem extends AppCompatActivity {
         imageView=findViewById(R.id.image_view);
 
 
-        
+        tvusername.setText(getIntent().getStringExtra("userName"));
+        tvdate.setText(getIntent().getStringExtra("date"));
+        tvstand.setText(getIntent().getStringExtra("stand"));
+        tvproblemPlace.setText(getIntent().getStringExtra("work_category"));
+        tvproblemTYpe.setText(getIntent().getStringExtra("work_sub_category")
+                +"\n"
+                +getIntent().getStringExtra("pavilion")
+                +"\n"
+                +getIntent().getStringExtra("houseKeepingPercentage"));
+        tvDescription.setText(getIntent().getStringExtra("issuedescription"));
+        Uri uri = Uri.parse(getIntent().getStringExtra("photouri"));
+        imageView.setImageURI(uri);
+
     }
 }

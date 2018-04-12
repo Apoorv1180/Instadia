@@ -144,7 +144,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
                     saveData.setUserName(userName);
                 }else saveData.setUserName(NullValues);
                 if(pavallion.getText()!=null){
-                    saveData.setPavallion(pavallion.getText().toString());
+                    saveData.setPavallion("P -"+pavallion.getText().toString());
                 }else saveData.setPavallion(NullValues);
                 saveData.setCompletionStatus("PENDING");
                 if(!TextUtils.isEmpty(preferenceWorkArea.readPreferencesPavallion())) {

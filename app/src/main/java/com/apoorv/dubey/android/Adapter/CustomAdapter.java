@@ -70,7 +70,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public EditText date,userName,stand,issue;
+        public TextView date,userName,stand,issue;
         public Button completionStatus;
         List<SaveData> saveDataArrayList= new ArrayList<>();
         Context context;
@@ -91,18 +91,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         public void onClick(View v) {
             int position = getAdapterPosition();
             SaveData saveData = this.saveDataArrayList.get(position);
-//    String date;
-//    String userName;
-//    String stand;
-//    String floor;
-//    String work_category;
-//    String chairNumber;
-//    String sub_workCategory;
-//    String pavallion;
-//    String houseKeepingPercentage;
-//    String issueDescription;
-//    String completionStatus;
-//    String photoUri;
             Intent intent = new Intent(this.context,SingleReportViewItem.class);
             intent.putExtra("date",saveData.getDate());
             intent.putExtra("userName",saveData.getUserName());
@@ -115,6 +103,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             intent.putExtra("issuedescription",saveData.getIssueDescription());
             intent.putExtra("completionstatus",saveData.getCompletionStatus());
             intent.putExtra("photouri",saveData.getPhotoUri());
+            this.context.startActivity(intent);
 
         }
     }
