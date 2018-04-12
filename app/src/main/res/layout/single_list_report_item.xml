@@ -23,28 +23,31 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/recyclervew_bg"
                 android:textStyle="bold"
-                android:textSize="14sp"/>
+                android:textSize="16sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:id="@+id/location"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/recyclervew_bg"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:id="@+id/area_block_number"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/recyclervew_bg"
+                android:textSize="14sp"/>
 
         </LinearLayout>
 
 
-            <EditText
-                android:layout_width="match_parent"
-                android:id="@+id/area_block_number"
-                android:layout_height="wrap_content"
-                android:background="@drawable/recyclervew_bg"
-                android:textSize="12sp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,11 +58,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/recyclervew_bg"
-                android:textSize="12sp"/>
+                android:textSize="13sp"/>
             <Button
                 android:layout_width="wrap_content"
                 android:id="@+id/completionStatus"
-                android:layout_gravity="end"
+                android:layout_margin="3dp"
+                android:layout_gravity="end|center"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_bg"/>
         </LinearLayout>
