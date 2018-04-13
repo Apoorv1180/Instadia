@@ -261,9 +261,9 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         text = item;
 
         customAdapter=new CustomAdapter(saveDataArrayList1,this,(CustomAdapter.EditData) CheckReportActivity.this);
-        Log.i("LOOP1", "iNTHIS LOOP");
+        Log.i("item", item);
 
-        saveDataArrayList1.clear();
+        saveDataArrayList1 = new ArrayList<>();
         if (item.equals("--Select Search Criteria--")) {
          saveDataArrayList1.addAll(saveDataArrayList);
         }
@@ -281,10 +281,7 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         }
 
 
-        if (!flag) {
-            recyclerView.setAdapter(mAdapter);
-        } else
-            recyclerView.setAdapter(customAdapter);
+      mAdapter.setData(saveDataArrayList1);
     }
 
 
