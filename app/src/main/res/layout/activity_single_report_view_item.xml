@@ -8,6 +8,16 @@
     android:background="@drawable/all_background"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:indeterminate="true"
+        android:translationY="7dp"
+        android:layout_marginTop="3dp"
+        android:visibility="gone" />
+
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

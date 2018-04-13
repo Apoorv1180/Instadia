@@ -64,7 +64,7 @@ public class InfrastructureActivity extends AppCompatActivity {
     private StorageReference mStorageReference;
     Uri downloadUri;
     private ProgressBar mProgressBar;
-    String finaldownloadUri= " ";
+    String finaldownloadUri= "";
 
     private Boolean doubleBackToExitPressedOnce = false;
     //radio group and button

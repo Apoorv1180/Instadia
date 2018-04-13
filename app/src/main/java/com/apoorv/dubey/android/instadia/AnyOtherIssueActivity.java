@@ -66,7 +66,7 @@ public class AnyOtherIssueActivity extends AppCompatActivity {
     Uri imageUri;
     private StorageReference mStorageReference;
     Uri downloadUri;
-    String finaldownloadUri= " ";
+    String finaldownloadUri= "";
     private ProgressBar mProgressBar;
     private Boolean doubleBackToExitPressedOnce = false;
 

@@ -69,7 +69,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
     private Boolean doubleBackToExitPressedOnce = false;
     RadioGroup radioGroup;
     RadioButton radioWorkType;
-    String finaldownloadUri= " ";
+    String finaldownloadUri= "";
 
     Uri downloadUri;
     private ProgressBar mProgressBar;

@@ -64,7 +64,7 @@ public class ElectricityActivity extends AppCompatActivity {
     private ImageView electricity_image_view;
     RadioGroup radioGroup;
     RadioButton radioWorkType;
-    String finaldownloadUri= " ";
+    String finaldownloadUri= "";
 
     //issue description
     EditText issueDescription;

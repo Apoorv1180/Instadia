@@ -68,8 +68,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
     SaveData saveData;
     RadioGroup radioGroup;
     RadioButton radioWorkType;
-    Uri downloadUri;
-     String finaldownloadUri= " ";
+     Uri downloadUri;String finaldownloadUri= "";
     private ProgressBar mProgressBar;
     //issue description
     EditText chairBlockEditText,chairSeatNumber,chairPavaliion;
