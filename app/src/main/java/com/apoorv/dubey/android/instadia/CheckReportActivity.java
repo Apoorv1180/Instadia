@@ -127,7 +127,15 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
     }
     private void generateCSV() {
         Gson gson = new Gson();
-        String reqJson= gson.toJson(saveDataArrayList);
+        String reqJson =  "";
+        if (saveDataArrayList1.size() != 0)
+        {
+            reqJson= gson.toJson(saveDataArrayList1);
+        }
+        else
+        {
+            reqJson= gson.toJson(saveDataArrayList);
+        }
 
         JsonFlattener parser = new JsonFlattener();
         CSVWriters writer = new CSVWriters();
