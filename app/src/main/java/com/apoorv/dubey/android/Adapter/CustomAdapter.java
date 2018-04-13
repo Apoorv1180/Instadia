@@ -57,11 +57,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.stand.setText(saveData.getSub_workCategory());
         holder.completionStatus.setText(saveData.getCompletionStatus());
         holder.issue.setText(saveData.getIssueDescription());
-        if(holder.completionStatus.getText()=="PENDING"){
-            holder.completionStatus.setBackgroundColor(context.getResources().getColor(R.color.colorPending));
+        if(saveData.isPending()){
+            holder.completionStatus.setBackground(context.getResources().getDrawable(R.drawable.button_bg_red));
         }
         else
-            holder.completionStatus.setBackgroundColor(context.getResources().getColor(R.color.colorCompleted));
+            holder.completionStatus.setBackground(context.getResources().getDrawable(R.drawable.button_bg_green));
 //
 //        holder.completionStatus.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -103,18 +103,13 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
                 startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"));
             }
         });
-        saveDataArrayList.clear();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                    // progressBar.setVisibility(View.GONE);
                     SaveData saveData =  childDataSnapshot.getValue(SaveData.class);
-                    Log.v("TAG",""+ saveData.getStand()); //displays the key for the node
-                        if(saveData.isPending())
-                        { saveDataArrayList.add(saveData);
-                        }
-
+                    saveDataArrayList.add(saveData);
                     mAdapter.notifyDataSetChanged();
 
                 }
@@ -256,12 +251,15 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         customAdapter=new CustomAdapter(saveDataArrayList1,this,(CustomAdapter.EditData) CheckReportActivity.this);
         Log.i("LOOP1", "iNTHIS LOOP");
 
-    saveDataArrayList1.clear();
+        saveDataArrayList1.clear();
         for(int i=0;i<saveDataArrayList.size();i++) {
             if (saveDataArrayList.get(i).getWork_category().contains(item)) {
                 flag = true;
-               // if(!saveDataArrayList.get(i).isPending())
-                saveDataArrayList1.add(saveDataArrayList.get(i));
+                if (!saveDataArrayList1.contains(saveDataArrayList.get(i)))
+                {
+                    saveDataArrayList1.add(saveDataArrayList.get(i));
+                }
+
             }
         }
 

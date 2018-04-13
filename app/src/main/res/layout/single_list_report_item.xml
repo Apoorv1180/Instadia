@@ -80,6 +80,8 @@
                     android:layout_gravity="center|end"
                     android:gravity="center"
                     android:padding="5dp"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_bg_red"
                     android:text="Mark Completed"
                     android:layout_height="wrap_content"
                     />
