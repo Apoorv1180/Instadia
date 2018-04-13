@@ -55,23 +55,12 @@ public class SingleReportViewItem extends AppCompatActivity {
                 + "\n"
                 + getIntent().getStringExtra("houseKeepingPercentage"));
         tvDescription.setText(getIntent().getStringExtra("issuedescription"));
+              Log.d("YOYO",getIntent().getStringExtra("photouri"));
         if (!getIntent().getStringExtra("photouri").isEmpty()) {
-            try {
-                finalUri = getIntent().getStringExtra("photouri");
-                 url = new URL(finalUri);
-                 uri = Uri.parse(url.toURI().toString());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            Log.i("URI", uri.toString());
-            imageView.setImageURI(uri);
-
+            String path = getIntent().getStringExtra("photouri");
+                         Picasso.get().load(path).into(imageView);
 
         } else
             imageView.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.app_icon_2));
-
-
     }
 }

@@ -171,7 +171,6 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     mProgressBar.setVisibility(View.GONE);
-
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
                     finaldownloadUri= downloadUri.toString();

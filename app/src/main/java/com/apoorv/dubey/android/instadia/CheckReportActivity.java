@@ -106,11 +106,15 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                  saveDataArrayList = new ArrayList<>();
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                    // progressBar.setVisibility(View.GONE);
                     SaveData saveData =  childDataSnapshot.getValue(SaveData.class);
-                    saveDataArrayList.add(saveData);
-                    mAdapter.notifyDataSetChanged();
+                    if (saveData.isPending())
+                    {
+                        saveDataArrayList.add(saveData);
+                    }
+                    mAdapter.setData(saveDataArrayList);
 
                 }
                 progressBar.setVisibility(View.GONE);
@@ -252,22 +256,26 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         Log.i("LOOP1", "iNTHIS LOOP");
 
         saveDataArrayList1.clear();
-        for(int i=0;i<saveDataArrayList.size();i++) {
-            if (saveDataArrayList.get(i).getWork_category().contains(item)) {
-                flag = true;
-                if (!saveDataArrayList1.contains(saveDataArrayList.get(i)))
-                {
-                    saveDataArrayList1.add(saveDataArrayList.get(i));
-                }
+        if (item.equals("--Select Search Criteria--"))
+        {
+            for(int i=0;i<saveDataArrayList.size();i++) {
+                if (saveDataArrayList.get(i).getWork_category().contains(item)) {
+                    flag = true;
+                    if (!saveDataArrayList1.contains(saveDataArrayList.get(i)))
+                    {
+                        saveDataArrayList1.add(saveDataArrayList.get(i));
+                    }
 
+                }
             }
         }
+
 
         if (!flag) {
             recyclerView.setAdapter(mAdapter);
         } else
             recyclerView.setAdapter(customAdapter);
-        }
+    }
 
 
 
