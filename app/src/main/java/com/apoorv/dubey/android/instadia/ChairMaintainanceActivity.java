@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -63,6 +64,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
     PreferenceWestGallery preferenceWestGallery;
     PreferenceAdminBlock preferenceAdminBlock;
     PreferenceWorkAreaSpecification preferenceWorkAreaSpecification;
+    private LinearLayout lnrPavillion;
     private StorageReference mStorageReference;
     private Boolean doubleBackToExitPressedOnce = false;
     SaveData saveData;
@@ -78,7 +80,6 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chair_maintainance);
-
         preferenceWorkArea= new PreferenceWorkArea(this);
         preferenceEastGallery= new PreferenceEastGallery(this);
         preferenceWestGallery= new PreferenceWestGallery(this);
@@ -87,9 +88,15 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
         preferenceNorthPavallion= new PreferenceNorthPavallion(this);
         preferenceSouthPavallion= new PreferenceSouthPavallion(this);
         chairBlockEditText=findViewById(R.id.chair_block_editText);
+        lnrPavillion = findViewById(R.id.lnr_pavillion);
         chairPavaliion=findViewById(R.id.chair_keeping_pavallion_edit_text);
         chairSeatNumber=findViewById(R.id.chair_seat_number_editText);
         radioGroup=findViewById(R.id.chair_radio_group);
+        if (  preferenceWorkArea.readPreferencesPavallion().equals("SOUTH PAVILION"))
+        {
+            lnrPavillion.setVisibility(View.VISIBLE);
+        }
+
         mProgressBar = findViewById(R.id.progressBar);
         selectedId = radioGroup.getCheckedRadioButtonId();
         mStorageReference= FirebaseStorage.getInstance().getReference();

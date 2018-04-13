@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apoorv.dubey.android.Adapter.CustomAdapter;
@@ -32,6 +33,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,6 +55,7 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
     private Boolean doubleBackToExitPressedOnce = false;
     private File path;
     private String name;
+    private TextView blankSlate;
     Spinner spinner;
     ArrayList<SaveData> saveDataArrayList1 = new ArrayList<>();
     ArrayList<SaveData> saveDataArrayList2 = new ArrayList<>();
@@ -75,6 +79,7 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         spinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         btnSHare = findViewById(R.id.btn_share);
+        blankSlate = findViewById(R.id.blankslate);
         progressBar = findViewById(R.id.progress_bar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -116,6 +121,14 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
                     }
                     mAdapter.setData(saveDataArrayList);
 
+                }
+                if (saveDataArrayList.size() == 0)
+                {
+                    blankSlate.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    blankSlate.setVisibility(View.GONE);
                 }
                 progressBar.setVisibility(View.GONE);
             }
@@ -279,12 +292,14 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
                 }
             }
         }
-
-
+        if(saveDataArrayList1.size() == 0) {
+            blankSlate.setVisibility(View.VISIBLE);
+        }
+        else {
+            blankSlate.setVisibility(View.GONE);
+        }
       mAdapter.setData(saveDataArrayList1);
     }
-
-
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

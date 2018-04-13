@@ -8,6 +8,8 @@
     android:layout_height="match_parent">
 
 
+
+
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -75,7 +77,15 @@
             android:text="Status"
             android:textStyle="bold" />
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/blankslate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_blue_dark"
+        android:text="No data available"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
