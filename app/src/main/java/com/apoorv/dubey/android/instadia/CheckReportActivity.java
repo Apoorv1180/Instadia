@@ -109,13 +109,12 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                    // progressBar.setVisibility(View.GONE);
-                    Log.v("TAG",""+ childDataSnapshot.getKey()); //displays the key for the node
-                    Log.v("TAG",""+ childDataSnapshot.child("stand").getValue());   //gives the value for given keyname
-
                     SaveData saveData =  childDataSnapshot.getValue(SaveData.class);
                     Log.v("TAG",""+ saveData.getStand()); //displays the key for the node
-                        //if(!saveData.isPending())
-                    saveDataArrayList.add(saveData);
+                        if(saveData.isPending())
+                        { saveDataArrayList.add(saveData);
+                        }
+
                     mAdapter.notifyDataSetChanged();
 
                 }
@@ -288,12 +287,10 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master/"+data.getId());
         data.setCompletionStatus("COMPLETED");
         data.setPending(false);
-        mDatabase.child(data.getId()).setValue(data);
+        mDatabase.setValue(data);
         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
-        startActivity(new Intent(this,ProfileActivity.class));
-        mAdapter.notifyDataSetChanged();
-        customAdapter.notifyDataSetChanged();
+     //   startActivity(new Intent(this,ProfileActivity.class));
 
     }
 }

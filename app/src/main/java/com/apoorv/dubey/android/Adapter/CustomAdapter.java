@@ -62,17 +62,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
         else
             holder.completionStatus.setBackgroundColor(context.getResources().getColor(R.color.colorCompleted));
-
-        holder.completionStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO ADD UPDATIONS HERE
-                holder.completionStatus.setText("COMPLETED");
-                saveDataList.get(position).setCompletionStatus("COMPLETED");
-                saveDataList.get(position).setPending(false);
-                notifyDataSetChanged();
-            }
-        });
+//
+//        holder.completionStatus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //TODO ADD UPDATIONS HERE
+//                holder.completionStatus.setText("COMPLETED");
+//                saveDataList.get(position).setCompletionStatus("COMPLETED");
+//                saveDataList.get(position).setPending(false);
+//                notifyDataSetChanged();
+//            }
+//        });
     }
 
     @Override
@@ -107,7 +107,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                         SaveData saveData = saveDataList.get(getAdapterPosition());
                         saveData.setPending(false);
                         editData.editUserData(saveData);
-                        Log.i("SAVE4","SAVE4");
                         completionStatus.setText("COMPLETED");
                         saveData.setCompletionStatus("COMPLETED");
                         notifyDataSetChanged();
