@@ -9,43 +9,49 @@
     android:layout_height="match_parent">
 
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
     <Button
         android:id="@+id/work_button"
-        android:layout_width="330dp"
-        android:layout_height="65dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
         android:background="@drawable/work_new"
         android:onClick="work_btn" />
 
     <Button
         android:id="@+id/stock_button"
-        android:layout_width="330dp"
-        android:layout_height="65dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/stock_new"
         android:onClick="stock_btn" />
 
     <Button
         android:id="@+id/report_button"
-        android:layout_width="330dp"
-        android:layout_height="65dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/report_new"
         android:onClick="report_btn" />
 
     <Button
         android:id="@+id/important_issue"
-        android:layout_width="330dp"
-        android:layout_height="65dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/importan_new"
         android:onClick="raise_issue_btn" />
 
-
+</LinearLayout>
 
 
 </LinearLayout>

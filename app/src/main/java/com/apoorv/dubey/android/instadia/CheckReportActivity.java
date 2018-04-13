@@ -90,8 +90,8 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
                 generateCSV();
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setType("text/plain");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"apoorv111221cse@gmail.com"});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "MyFusion Match Maintainence CSV");
+                emailIntent.putExtra(Intent.EXTRA_CC, new String[] {"apoorv111221cse@gmail.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "InstaDia CSV");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi,please find the attachment.");
                 File file = new File(path, name);
                 if (!file.exists() || !file.canRead()) {
@@ -264,8 +264,10 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         Log.i("LOOP1", "iNTHIS LOOP");
 
         saveDataArrayList1.clear();
-        if (item.equals("--Select Search Criteria--"))
-        {
+        if (item.equals("--Select Search Criteria--")) {
+         saveDataArrayList1.addAll(saveDataArrayList);
+        }
+        else {
             for(int i=0;i<saveDataArrayList.size();i++) {
                 if (saveDataArrayList.get(i).getWork_category().contains(item)) {
                     flag = true;
@@ -300,6 +302,7 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master/"+data.getId());
         data.setCompletionStatus("COMPLETED");
+        data.setDoneBy(data.getDoneBy());
         data.setPending(false);
         mDatabase.setValue(data);
         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();

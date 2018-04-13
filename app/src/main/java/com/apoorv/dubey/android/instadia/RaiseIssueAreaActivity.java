@@ -117,6 +117,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
             mProgressBar.setVisibility(View.VISIBLE);
+            btnSave.setEnabled(false);
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             imgIssue.setImageBitmap(bp);
             tempUri = getImageUri(getApplicationContext(), bp);
@@ -133,6 +134,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
                     finalDownLoadUrl = downloadUri.toString();
+                    btnSave.setEnabled(true);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -225,6 +227,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private void writeData(ImportantIssue issue) {
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
+        issue.setDoneBy(issue.getDoneBy());
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue/"+issue.getId());
         mDatabase.setValue(issue);
         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();

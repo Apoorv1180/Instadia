@@ -1,5 +1,6 @@
 package com.apoorv.dubey.android.model;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
@@ -8,6 +9,7 @@ public class ImportantIssue {
     private String url = "";
     private String issueDescription = "";
     private boolean isPending = true;
+    private String doneBy;
 
     public boolean isPending() {
         return isPending;
@@ -39,5 +41,13 @@ public class ImportantIssue {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDoneBy() {
+        return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+    }
+
+    public void setDoneBy(String doneBy) {
+        this.doneBy = doneBy;
     }
 }

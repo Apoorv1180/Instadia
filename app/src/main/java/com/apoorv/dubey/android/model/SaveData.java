@@ -1,5 +1,6 @@
 package com.apoorv.dubey.android.model;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 /**
@@ -21,9 +22,12 @@ public class SaveData {
     String issueDescription;
     String completionStatus;
     String photoUri;
+    String doneBy;
     boolean isPending=true;
 
-    public SaveData(String id,String date, String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeepingPercentage, String issueDescription, String completionStatus, String photoUri) {
+
+
+    public SaveData(String id, String date, String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeepingPercentage, String issueDescription, String completionStatus, String photoUri,String doneBy) {
         this.id=id;
         this.date=date;
         this.userName = userName;
@@ -37,6 +41,7 @@ public class SaveData {
         this.houseKeepingPercentage = houseKeepingPercentage;
         this.issueDescription = issueDescription;
         this.completionStatus=completionStatus;
+        this.doneBy = doneBy;
     }
 
     public SaveData() {
@@ -154,6 +159,14 @@ public class SaveData {
 
     public void setPending(boolean pending) {
         isPending = pending;
+    }
+
+    public String getDoneBy() {
+        return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+    }
+
+    public void setDoneBy(String doneBy) {
+        this.doneBy = doneBy;
     }
 
 }
