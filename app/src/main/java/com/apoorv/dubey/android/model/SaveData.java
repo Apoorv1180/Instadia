@@ -8,7 +8,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class SaveData {
-
+    String id="";
     String date;
     String userName;
     String stand;
@@ -21,9 +21,10 @@ public class SaveData {
     String issueDescription;
     String completionStatus;
     String photoUri;
-    boolean isPending;
+    boolean isPending=true;
 
-    public SaveData(String date, String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeepingPercentage, String issueDescription, String completionStatus, String photoUri) {
+    public SaveData(String id,String date, String userName, String stand, String floor, String work_category, String sub_workCategory, String pavallion, String chairNumber, String houseKeepingPercentage, String issueDescription, String completionStatus, String photoUri) {
+        this.id=id;
         this.date=date;
         this.userName = userName;
         this.stand = stand;
@@ -40,6 +41,14 @@ public class SaveData {
 
     public SaveData() {
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDate() {

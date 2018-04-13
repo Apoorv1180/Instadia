@@ -4,6 +4,7 @@ package com.apoorv.dubey.android.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    private List<SaveData> saveDataList;
+    private List<SaveData> saveDataList=new ArrayList<>();
     Context context;
     EditData editData;
 
@@ -42,8 +43,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return new MyViewHolder(itemView,context,saveDataList);
     }
 
+    public void setData(List<SaveData> importantIssues) {
+        this.saveDataList = importantIssues;
+        notifyDataSetChanged();
+    }
+
+
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         SaveData saveData = saveDataList.get(position);
         holder.date.setText(saveData.getStand() );
         holder.userName.setText(saveData.getWork_category());
@@ -61,6 +68,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             public void onClick(View v) {
                 //TODO ADD UPDATIONS HERE
                 holder.completionStatus.setText("COMPLETED");
+                saveDataList.get(position).setCompletionStatus("COMPLETED");
+                saveDataList.get(position).setPending(false);
                 notifyDataSetChanged();
             }
         });
@@ -98,6 +107,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                         SaveData saveData = saveDataList.get(getAdapterPosition());
                         saveData.setPending(false);
                         editData.editUserData(saveData);
+                        Log.i("SAVE4","SAVE4");
+                        completionStatus.setText("COMPLETED");
+                        saveData.setCompletionStatus("COMPLETED");
+                        notifyDataSetChanged();
 
                     }
                 }
@@ -106,6 +119,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 @Override
                 public void onClick(View view) {
                        editData.deleteUserData(getAdapterPosition());
+                       notifyDataSetChanged();
                 }
             });
         }

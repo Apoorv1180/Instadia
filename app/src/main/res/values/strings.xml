@@ -16,8 +16,8 @@
     <string name="WORK">WORK</string>
     <string name="stock">STOCK</string>
     <string name="report">REPORT</string>
-    <string name="north_pavallion">NORTH PAVALLION</string>
-    <string name="south_pavallion">SOUTH PAVALLION</string>
+    <string name="north_pavallion">NORTH PAVILION</string>
+    <string name="south_pavallion">SOUTH PAVILION</string>
     <string name="east_gallery">EAST GALLERY</string>
     <string name="west_gallery">WEST GALLERY</string>
     <string name="admin_block">ADMINISTRATIVE BLOCK</string>
@@ -41,7 +41,7 @@
     <string name="block">Block</string>
     <string name="seat_number">SEAT NUMBER</string>
     <string name="screw_fixing">SCREW FIXING</string>
-    <string name="chair_repair">CHAIR REPAIR</string>
+    <string name="chair_repair">CHAIR REPLACE</string>
     <string name="seat_no_painting">SEAT NO. PAINTING</string>
     <string name="frame_repair">FRAME REPAIR</string>
     <string name="other">OTHER</string>

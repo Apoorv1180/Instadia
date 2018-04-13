@@ -69,6 +69,8 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private EditText edtIssue;
     private Button btnSave;
     private StorageReference mStorageReference;
+
+
     private FirebaseStorage firebaseStorage;
     private Context context;
     ImportantIssue importantIssue;

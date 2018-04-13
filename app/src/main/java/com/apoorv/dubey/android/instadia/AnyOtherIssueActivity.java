@@ -66,6 +66,7 @@ public class AnyOtherIssueActivity extends AppCompatActivity {
     Uri imageUri;
     private StorageReference mStorageReference;
     Uri downloadUri;
+    String finaldownloadUri= " ";
     private ProgressBar mProgressBar;
     private Boolean doubleBackToExitPressedOnce = false;
 
@@ -107,12 +108,13 @@ public class AnyOtherIssueActivity extends AppCompatActivity {
 
 
 
-        final String NullValues = "NA";
+        final String NullValues = " ";
         otherIssueSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 saveData = new SaveData();
+                saveData.setId(String.valueOf(System.currentTimeMillis()));
                 saveData.setChairNumber(NullValues);
                 saveData.setHouseKeepingPercentage(NullValues);
                 saveData.setDate(getBookingTimestamp());
@@ -133,9 +135,8 @@ public class AnyOtherIssueActivity extends AppCompatActivity {
                     saveData.setIssueDescription(issueDescription.getText().toString());
 
                 }else saveData.setIssueDescription(NullValues);
-                if(!TextUtils.isEmpty(downloadUri.toString()))
-                saveData.setPhotoUri(downloadUri.toString());
-                else saveData.setPhotoUri(NullValues);
+                saveData.setPhotoUri(finaldownloadUri);
+
                 writeData();
 
             }
@@ -168,6 +169,7 @@ public class AnyOtherIssueActivity extends AppCompatActivity {
 
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
+                    finaldownloadUri= downloadUri.toString();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -218,10 +220,10 @@ public class AnyOtherIssueActivity extends AppCompatActivity {
         String floor ="";
         Log.i("TAG",preferenceWorkArea.readPreferencesPavallion().toString()+ preferenceNorthPavallion.readPreferencesNorthPavallionArea().toString());
         switch (preferenceWorkArea.readPreferencesPavallion()){
-            case  "NORTH PAVALLION":
+            case  "NORTH PAVILION":
                 floor= preferenceNorthPavallion.readPreferencesNorthPavallionArea();
                 break;
-            case  "SOUTH PAVALLION":
+            case  "SOUTH PAVILION":
                 floor= preferenceSouthPavallion.readPreferencesPavallionArea();
                 break;
             case  "EAST GALLERY":
@@ -270,7 +272,7 @@ public class AnyOtherIssueActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master");
-        mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(saveData);
+        mDatabase.child(saveData.getId()).setValue(saveData);
         Toast.makeText(getApplicationContext(), "Data Updated Successfully", Toast.LENGTH_SHORT).show();
         mProgressBar.setVisibility(View.GONE);
         startActivity(new Intent(this, ProfileActivity.class));

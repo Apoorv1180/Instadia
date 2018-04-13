@@ -31,13 +31,13 @@ public class WorkAreaActivity extends AppCompatActivity {
 
     public void north_pavallion_btn(View view){
         Log.i("in atatat","hhhh");
-        preferenceWorkArea.writePreferencesPavallion("NORTH PAVALLION");
+        preferenceWorkArea.writePreferencesPavallion("NORTH PAVILION");
         Intent intent = new Intent(WorkAreaActivity.this,NorthPavallionActivity.class);
         startActivity(intent);
     }
     public void south_pavallion_btn(View view){
         Intent intent = new Intent(WorkAreaActivity.this,SouthPavallionActivity.class);
-        preferenceWorkArea.writePreferencesPavallion("SOUTH PAVALLION");
+        preferenceWorkArea.writePreferencesPavallion("SOUTH PAVILION");
         startActivity(intent);
     }
     public void east_gallery_btn(View view){

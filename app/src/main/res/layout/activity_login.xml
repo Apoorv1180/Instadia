@@ -159,7 +159,7 @@
                     android:layout_marginTop="4dp"
                     android:ems="10"
                     android:hint="Enter Your Name"
-                    android:inputType="textPersonName" />
+                    android:inputType="textCapWords" />
 
                 <EditText
                     android:id="@+id/email_editText"
@@ -177,7 +177,7 @@
                     android:layout_marginTop="4dp"
                     android:ems="10"
                     android:hint="ORGANISATION"
-                    android:inputType="text" />
+                    android:inputType="textCapWords" />
 
                 <Button
                     android:id="@+id/save_info_btn"

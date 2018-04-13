@@ -19,6 +19,7 @@ public class SingleReportViewItem extends AppCompatActivity {
     TextView tvusername, tvdate, tvstand, tvproblemTYpe, tvproblemPlace, tvDescription;
     URL url;
     Uri uri;
+    String finalUri = " ";
 
     //intent.putExtra("date",saveData.getDate());
     //            intent.putExtra("userName",saveData.getUserName());
@@ -56,8 +57,8 @@ public class SingleReportViewItem extends AppCompatActivity {
         tvDescription.setText(getIntent().getStringExtra("issuedescription"));
         if (!getIntent().getStringExtra("photouri").isEmpty()) {
             try {
-                String strurl = getIntent().getStringExtra("photouri");
-                 url = new URL(strurl);
+                finalUri = getIntent().getStringExtra("photouri");
+                 url = new URL(finalUri);
                  uri = Uri.parse(url.toURI().toString());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -66,6 +67,7 @@ public class SingleReportViewItem extends AppCompatActivity {
             }
             Log.i("URI", uri.toString());
             imageView.setImageURI(uri);
+
 
         } else
             imageView.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.app_icon_2));

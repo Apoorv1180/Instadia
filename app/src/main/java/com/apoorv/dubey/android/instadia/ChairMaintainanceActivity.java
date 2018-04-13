@@ -69,9 +69,10 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioWorkType;
     Uri downloadUri;
+     String finaldownloadUri= " ";
     private ProgressBar mProgressBar;
     //issue description
-    EditText chairBlockEditText,chairSeatNumber;
+    EditText chairBlockEditText,chairSeatNumber,chairPavaliion;
 
     int selectedId=0;
     @Override
@@ -87,6 +88,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
         preferenceNorthPavallion= new PreferenceNorthPavallion(this);
         preferenceSouthPavallion= new PreferenceSouthPavallion(this);
         chairBlockEditText=findViewById(R.id.chair_block_editText);
+        chairPavaliion=findViewById(R.id.chair_keeping_pavallion_edit_text);
         chairSeatNumber=findViewById(R.id.chair_seat_number_editText);
         radioGroup=findViewById(R.id.chair_radio_group);
         mProgressBar = findViewById(R.id.progressBar);
@@ -115,12 +117,13 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
         });
 
 
-        final String NullValues = "NA";
+        final String NullValues = " ";
         chair_save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 saveData = new SaveData();
+                saveData.setId(String.valueOf(System.currentTimeMillis()));
     if(chairSeatNumber.getText()!=null && chairBlockEditText.getText()!=null){
         saveData.setChairNumber(chairBlockEditText.getText()+"-"+chairSeatNumber.getText());
     }else { saveData.setChairNumber(NullValues);}
@@ -128,6 +131,8 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
                 saveData.setDate(getBookingTimestamp());
                 String userName = getUser();
                 saveData.setUserName(userName);
+                if(chairPavaliion.getText()!=null)saveData.setPavallion("P-"+chairPavaliion.getText().toString());
+                else saveData.setPavallion(NullValues);
                 saveData.setPavallion(NullValues);
                 saveData.setCompletionStatus("PENDING");
                 saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
@@ -135,7 +140,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
                 saveData.setWork_category(preferenceWorkAreaSpecification.readPreferencesAreaType());
                 saveData.setSub_workCategory(radioWorkType.getText().toString());
                 saveData.setIssueDescription(NullValues);
-                saveData.setPhotoUri(downloadUri.toString());
+                saveData.setPhotoUri(finaldownloadUri);
                 writeData();
 
             }
@@ -169,6 +174,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
 
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
+                    finaldownloadUri= downloadUri.toString();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -188,10 +194,10 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
         String floor ="";
         Log.i("TAG",preferenceWorkArea.readPreferencesPavallion().toString()+ preferenceNorthPavallion.readPreferencesNorthPavallionArea().toString());
         switch (preferenceWorkArea.readPreferencesPavallion()){
-            case  "NORTH PAVALLION":
+            case  "NORTH PAVILION":
                 floor= preferenceNorthPavallion.readPreferencesNorthPavallionArea();
                 break;
-            case  "SOUTH PAVALLION":
+            case  "SOUTH PAVILION":
                 floor= preferenceSouthPavallion.readPreferencesPavallionArea();
                 break;
             case  "EAST GALLERY":
@@ -257,7 +263,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master");
-        mDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(saveData);
+        mDatabase.child(saveData.getId()).setValue(saveData);
         Toast.makeText(getApplicationContext(), "Data Updated Successfully", Toast.LENGTH_SHORT).show();
         mProgressBar.setVisibility(View.GONE);
         startActivity(new Intent(this, ProfileActivity.class));

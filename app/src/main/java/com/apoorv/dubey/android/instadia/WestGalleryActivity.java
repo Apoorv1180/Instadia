@@ -31,7 +31,7 @@ public class WestGalleryActivity extends AppCompatActivity {
 
             case R.id.west_outer_periphery_button :
                 preferenceWestGallery.writePreferencesWestGalleryArea("OUTER PERIPHERY");
-                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(true);
                 break;
             case R.id.west_ground_floor_button :
                 preferenceWestGallery.writePreferencesWestGalleryArea("GROUND FLOOR");

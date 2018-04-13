@@ -30,7 +30,7 @@ public class SouthPavallionActivity extends AppCompatActivity {
 
             case R.id.south_outer_periphery_button :
                 preferenceSouthPavallion.writePreferencesPavallionArea("OUTER PERIPHERY");
-                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(true);
                 break;
             case R.id.south_ground_floor_button :
                 preferenceSouthPavallion.writePreferencesPavallionArea("GROUND FLOOR");

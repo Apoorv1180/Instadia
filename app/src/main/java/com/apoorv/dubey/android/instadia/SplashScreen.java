@@ -9,7 +9,7 @@ import android.widget.Toast;
 public class SplashScreen extends Activity {
 
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 500;
+    private static int SPLASH_TIME_OUT = 5000;
     private Boolean doubleBackToExitPressedOnce = false;
 
     @Override

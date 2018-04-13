@@ -30,7 +30,7 @@ public class EastGalleryActivity extends AppCompatActivity {
 
             case R.id.east_outer_periphery_button :
                 preferenceEastGallery.writePreferencesEastGalleryArea("OUTER PERIPHERY");
-                preferenceWorkArea.writePreferencesPavallionOuterPerifery(false);
+                preferenceWorkArea.writePreferencesPavallionOuterPerifery(true);
                 break;
             case R.id.east_ground_floor_button :
                 preferenceEastGallery.writePreferencesEastGalleryArea("GROUND FLOOR");

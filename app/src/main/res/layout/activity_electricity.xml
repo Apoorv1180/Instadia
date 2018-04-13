@@ -43,7 +43,7 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:ems="10"
         android:hint="@string/issue_description"
-        android:inputType="text" />
+        android:inputType="textCapWords" />
     </android.support.design.widget.TextInputLayout>
     <RadioGroup
         android:id="@+id/electricity_radio_group"

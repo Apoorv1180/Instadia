@@ -103,20 +103,23 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
                 startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"));
             }
         });
+        saveDataArrayList.clear();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                   // progressBar.setVisibility(View.GONE);
                     Log.v("TAG",""+ childDataSnapshot.getKey()); //displays the key for the node
                     Log.v("TAG",""+ childDataSnapshot.child("stand").getValue());   //gives the value for given keyname
 
                     SaveData saveData =  childDataSnapshot.getValue(SaveData.class);
                     Log.v("TAG",""+ saveData.getStand()); //displays the key for the node
-
+                        //if(!saveData.isPending())
                     saveDataArrayList.add(saveData);
                     mAdapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.GONE);
+
                 }
+                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -204,7 +207,8 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
     @Override
     public void editUserData(SaveData data) {
         //TODO savedatahere
-      //  writeData(data);
+        Log.i("SAVE1","SAVE1");
+        writeData(data);
     }
 
     @Override
@@ -214,8 +218,11 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
 
     private void deleteData(SaveData data) {
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/ImportantIssue/");
+        Log.i("DELETE","DELETE");
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master/"+data.getId());
         mDatabase.removeValue();
+        customAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
 
     }
     public void onBackPressed() {
@@ -254,6 +261,7 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         for(int i=0;i<saveDataArrayList.size();i++) {
             if (saveDataArrayList.get(i).getWork_category().contains(item)) {
                 flag = true;
+               // if(!saveDataArrayList.get(i).isPending())
                 saveDataArrayList1.add(saveDataArrayList.get(i));
             }
         }
@@ -271,5 +279,21 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
         Log.i("LOOP","iNTHIS LOOP");
           //  mAdapter.notifyDataSetChanged();
            // recyclerView.setAdapter(mAdapter);
+    }
+
+    private void writeData(SaveData data) {
+        Log.i("SAVE1","SAVE1");
+        progressBar.setVisibility(View.VISIBLE);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReferenceFromUrl("https://instadia-c84f4.firebaseio.com/master/"+data.getId());
+        data.setCompletionStatus("COMPLETED");
+        data.setPending(false);
+        mDatabase.child(data.getId()).setValue(data);
+        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
+        startActivity(new Intent(this,ProfileActivity.class));
+        mAdapter.notifyDataSetChanged();
+        customAdapter.notifyDataSetChanged();
+
     }
 }
