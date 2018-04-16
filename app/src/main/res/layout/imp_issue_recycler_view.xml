@@ -36,7 +36,7 @@
             android:layout_gravity=""
             android:visibility="invisible"
             android:layout_weight="1"
-            android:text="Mark Completed"/>
+            android:text="PENDING"/>
 
         <Button
             android:id="@+id/btn_delete"
@@ -54,7 +54,7 @@
         android:padding="5dp"
         android:textColor="@color/colorWhite"
         android:background="@drawable/button_bg_red"
-        android:text="Mark Completed"/>
+        android:text="PENDING"/>
 
     </LinearLayout>
 </LinearLayout>

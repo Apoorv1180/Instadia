@@ -53,7 +53,7 @@ import java.util.TimeZone;
 import static android.support.v7.widget.LinearLayoutManager.VERTICAL;
 
 public class RaiseIssueAreaActivity extends AppCompatActivity implements View.OnClickListener,ImportantIssueAdapter.EditData {
-    public ImageButton imgTakePicture;
+    public Button imgTakePicture;
     public ImageView imgIssue;
     File finalFile;
     Uri downloadUri, tempUri;

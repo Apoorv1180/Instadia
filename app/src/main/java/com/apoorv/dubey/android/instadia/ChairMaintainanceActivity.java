@@ -130,16 +130,17 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
 
                 saveData = new SaveData();
                 saveData.setId(String.valueOf(System.currentTimeMillis()));
-    if(chairSeatNumber.getText()!=null && chairBlockEditText.getText()!=null){
+    if(chairSeatNumber.getText().length()!=0 && chairBlockEditText.getText().length()!=0){
         saveData.setChairNumber(chairBlockEditText.getText()+"-"+chairSeatNumber.getText());
     }else { saveData.setChairNumber(NullValues);}
                 saveData.setHouseKeepingPercentage(NullValues);
                 saveData.setDate(getBookingTimestamp());
                 String userName = getUser();
                 saveData.setUserName(userName);
-                if(chairPavaliion.getText()!=null)saveData.setPavallion("P-"+chairPavaliion.getText().toString());
+                if( chairPavaliion.getText().toString().length()!=0){
+                    saveData.setPavallion("P-"+chairPavaliion.getText().toString());}
                 else saveData.setPavallion(NullValues);
-                saveData.setPavallion(NullValues);
+                Log.i("pav",saveData.getPavallion()+chairPavaliion.getText()+chairPavaliion.getText().length());
                 saveData.setCompletionStatus("PENDING");
                 saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
                 saveData.setFloor(checkFloor());
