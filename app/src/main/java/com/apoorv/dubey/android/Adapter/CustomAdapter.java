@@ -52,7 +52,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         SaveData saveData = saveDataList.get(position);
-        holder.date.setText(saveData.getStand() );
+        holder.date.setText(saveData.getStand() + "  "+ saveData.getFloor() +"  "+saveData.getPavallion()+"  "+saveData.getChairNumber());
         holder.userName.setText(saveData.getWork_category());
         holder.stand.setText(saveData.getSub_workCategory());
         holder.completionStatus.setText(saveData.getCompletionStatus());

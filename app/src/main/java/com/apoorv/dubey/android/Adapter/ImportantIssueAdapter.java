@@ -72,7 +72,7 @@ public class ImportantIssueAdapter extends RecyclerView.Adapter<ImportantIssueAd
         holder.tvIssueDescription.setText(importantIssue.getIssueDescription());
         if (importantIssue.isPending()){
             holder.btnMarkComplete.setBackground(context.getResources().getDrawable(R.drawable.button_bg_red));
-            holder.btnMarkComplete.setText("MARK COMPLETED");
+            holder.btnMarkComplete.setText("PENDING");
         } else {
             holder.btnMarkComplete.setBackground(context.getResources().getDrawable(R.drawable.button_bg_green));
             holder.btnMarkComplete.setText("Completed");

@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/work_new"
+        android:background="@drawable/work"
         android:onClick="work_btn" />
 
     <Button
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/stock_new"
         android:onClick="stock_btn" />
 
@@ -38,8 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/report_new"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/report"
         android:onClick="report_btn" />
 
     <Button
@@ -47,8 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/importan_new"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/priority"
         android:onClick="raise_issue_btn" />
 
 </LinearLayout>

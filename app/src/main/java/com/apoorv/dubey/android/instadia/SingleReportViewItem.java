@@ -24,18 +24,6 @@ public class SingleReportViewItem extends AppCompatActivity {
     Uri uri;
     ProgressBar mProgressBar;
     String finalUri = " ";
-
-    //intent.putExtra("date",saveData.getDate());
-    //            intent.putExtra("userName",saveData.getUserName());
-    //            intent.putExtra("stand",saveData.getStand());
-    //            intent.putExtra("floor",saveData.getFloor());
-    //            intent.putExtra("work_category",saveData.getWork_category());
-    //            intent.putExtra("work_sub_category",saveData.getSub_workCategory());
-    //            intent.putExtra("pavilion",saveData.getPavallion());
-    //            intent.putExtra("houseKeepingPercentage",saveData.getHouseKeepingPercentage());
-    //            intent.putExtra("issuedescription",saveData.getIssueDescription());
-    //            intent.putExtra("completionstatus",saveData.getCompletionStatus());
-    //            intent.putExtra("photouri",saveData.getPhotoUri());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +35,16 @@ public class SingleReportViewItem extends AppCompatActivity {
         tvproblemTYpe = findViewById(R.id.problem_type);
         tvDescription = findViewById(R.id.description);
         imageView = findViewById(R.id.image_view);
-mProgressBar = findViewById(R.id.progress_bar);
-mProgressBar.setVisibility(View.GONE);
+        mProgressBar = findViewById(R.id.progress_bar);
+        mProgressBar.setVisibility(View.GONE);
 
         tvusername.setText(getIntent().getStringExtra("userName"));
         tvdate.setText(getIntent().getStringExtra("date"));
         tvstand.setText(getIntent().getStringExtra("stand"));
         tvproblemPlace.setText(getIntent().getStringExtra("work_category"));
-        tvproblemTYpe.setText(getIntent().getStringExtra("work_sub_category")
+        tvproblemTYpe.setText(getIntent().getStringExtra("floor")
+                +"\n"+
+                getIntent().getStringExtra("work_sub_category")
                 + "\n"
                 + getIntent().getStringExtra("pavilion")
                 + "\n"
