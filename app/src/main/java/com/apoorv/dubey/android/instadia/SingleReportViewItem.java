@@ -46,7 +46,7 @@ public class SingleReportViewItem extends AppCompatActivity {
                 +"\n"+
                 getIntent().getStringExtra("work_sub_category")
                 + "\n"
-                + getIntent().getStringExtra("pavilion")
+                + getIntent().getStringExtra("pavilion") +"  "+ getIntent().getStringExtra("chair")
                 + "\n"
                 + getIntent().getStringExtra("houseKeepingPercentage"));
         tvDescription.setText(getIntent().getStringExtra("issuedescription"));

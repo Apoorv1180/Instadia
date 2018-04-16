@@ -52,7 +52,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         SaveData saveData = saveDataList.get(position);
-        holder.date.setText(saveData.getStand() + "  "+ saveData.getFloor() +"  "+saveData.getPavallion()+"  "+saveData.getChairNumber());
+        holder.date.setText(saveData.getStand() + "  "+ saveData.getFloor() +"  "+"\n"+saveData.getPavallion()+"  "+saveData.getChairNumber());
+        Log.i("pav11",saveData.getPavallion());
         holder.userName.setText(saveData.getWork_category());
         holder.stand.setText(saveData.getSub_workCategory());
         holder.completionStatus.setText(saveData.getCompletionStatus());
@@ -132,6 +133,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             intent.putExtra("userName",saveData.getUserName());
             intent.putExtra("stand",saveData.getStand());
             intent.putExtra("floor",saveData.getFloor());
+            intent.putExtra("chair",saveData.getChairNumber());
             intent.putExtra("work_category",saveData.getWork_category());
             intent.putExtra("work_sub_category",saveData.getSub_workCategory());
             intent.putExtra("pavilion",saveData.getPavallion());

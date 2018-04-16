@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -73,6 +74,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
 
     Uri downloadUri;
     private ProgressBar mProgressBar;
+    private LinearLayout lnrPavilion;
 
     //issue description
     EditText issueDescription,pavallion;
@@ -102,6 +104,7 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
         mProgressBar=findViewById(R.id.progressBar);
         issueDescription=findViewById(R.id.house_keeping_comment_edit_text);
         houseKeepingSaveButton=findViewById(R.id.house_keeping_save_button);
+        lnrPavilion=findViewById(R.id.lnr_pavillion);
         radioGroup=findViewById(R.id.house_keeping_radio_group);
         selectedId = radioGroup.getCheckedRadioButtonId();
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -120,6 +123,10 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
             }
         });
 
+        if (  preferenceWorkArea.readPreferencesPavallion().equals("SOUTH PAVILION"))
+        {
+            lnrPavilion.setVisibility(View.VISIBLE);
+        }
         mStorageReference= FirebaseStorage.getInstance().getReference();
 
 
@@ -146,9 +153,10 @@ public class HouseKeepingActivity extends AppCompatActivity implements OnItemSel
                 if(!TextUtils.isEmpty(userName)) {
                     saveData.setUserName(userName);
                 }else saveData.setUserName(NullValues);
-                if(pavallion.getText()!=null){
+                if( pavallion.getText().toString().length()!=0){
                     saveData.setPavallion("P -"+pavallion.getText().toString());
                 }else saveData.setPavallion(NullValues);
+                Log.i("PAVA",saveData.getPavallion() + pavallion.getText() +pavallion.getText().toString().length());
                 saveData.setCompletionStatus("PENDING");
                 if(!TextUtils.isEmpty(preferenceWorkArea.readPreferencesPavallion())) {
                     saveData.setStand(preferenceWorkArea.readPreferencesPavallion());
