@@ -16,16 +16,30 @@
         android:indeterminate="true"
         android:translationY="7dp"
         android:visibility="gone" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
     <Button
         android:id="@+id/btn_add_issue"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:background="@drawable/button_bg"
         android:textColor="@android:color/white"
         android:text="Add Issue" />
-
+    <Button
+        android:id="@+id/btn_share_issue"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_bg"
+        android:textColor="@android:color/white"
+        android:text="Share Report"
+        />
+</LinearLayout>
     <LinearLayout android:id="@+id/lnr_add_issue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

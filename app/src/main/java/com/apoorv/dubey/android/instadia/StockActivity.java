@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.apoorv.dubey.android.Adapter.StocksDataAdapter;
+import com.apoorv.dubey.android.CSVUtils.CSVWriters;
+import com.apoorv.dubey.android.CSVUtils.JsonFlattener;
 import com.apoorv.dubey.android.Dialogs.CustomDialogForStocks;
 import com.apoorv.dubey.android.model.Stock;
 import com.google.firebase.database.DataSnapshot;
@@ -28,17 +33,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.support.v7.widget.LinearLayoutManager.VERTICAL;
 
 public class StockActivity extends AppCompatActivity implements CustomDialogForStocks.DialogSaveClickedListener, View.OnClickListener {
-    private Button btnAddData;
+    private Button btnAddData,btnShare;
     private StocksDataAdapter stocksDataAdapter;
     private RecyclerView recyclerView;
     private List<Stock> stockDataList;
+    private File path;
+    private String name;
     private DatabaseReference globaRef;
     private ProgressBar mProgressBar;
     private Boolean doubleBackToExitPressedOnce = false;
@@ -50,7 +64,9 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
         recyclerView = findViewById(R.id.recyclerView);
         mProgressBar = findViewById(R.id.progress_bar);
         mProgressBar.setVisibility(View.VISIBLE);
+        btnShare=findViewById(R.id.btn_share);
         btnAddData.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
         stocksDataAdapter = new StocksDataAdapter(this,new ArrayList<Stock>());
         stocksDataAdapter.setData(new ArrayList<Stock>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, VERTICAL,false));
@@ -97,6 +113,22 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
                 customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 customDialog.show();
                 break;
+            case R.id.btn_share:
+                generateCSV();
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_CC, new String[] {"apoorv111221cse@gmail.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "InstaDia_Stock CSV");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi,please find the attachment.");
+                File file = new File(path, name);
+                if (!file.exists() || !file.canRead()) {
+                    return;
+                }
+                Uri uri = FileProvider.getUriForFile(StockActivity.this, getApplicationContext().getPackageName() + ".provider", file);
+                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"));
+                break;
         }
     }
     private void viewData() {
@@ -125,6 +157,75 @@ public class StockActivity extends AppCompatActivity implements CustomDialogForS
         });
 
     }
+    private void generateCSV() {
+        Gson gson = new Gson();
+        String reqJson =  "";
+        if (stockDataList.size() != 0)
+        {
+            reqJson= gson.toJson(stockDataList);
+        }
+        else
+        {
+            reqJson= gson.toJson(stockDataList);
+        }
+
+        JsonFlattener parser = new JsonFlattener();
+        CSVWriters writer = new CSVWriters();
+
+        List<Map<String, String>> flatJson = null;
+        //to this path add a new directory path and create new App dir (InstroList) in /documents Dir
+
+        try {
+            flatJson = parser.parseJson(reqJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            String output = writer.writeAsCSV(flatJson,"");
+            path =
+                    Environment.getExternalStoragePublicDirectory
+                            (
+                                    //Environment.DIRECTORY_PICTURES
+                                    Environment.DIRECTORY_DCIM + "/CSV/"
+                            );
+            name = System.currentTimeMillis()+"Instadia_Stock.csv";
+            writeToFile(output,path,name);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void writeToFile(String data,File path,String name)
+    {
+        // Get the directory for the user's public pictures directory.
+        // Make sure the path directory exists.
+        if(!path.exists())
+        {
+            // Make it, if it doesn't exit
+            path.mkdirs();
+        }
+
+        final File file = new File(path,name);
+
+        // Save your stream, don't forget to flush() it before closing it.
+
+        try
+        {
+            file.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(file);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(data);
+
+            myOutWriter.close();
+
+            fOut.flush();
+            fOut.close();
+        }
+        catch (IOException e)
+        {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
     private void writeData(Stock stock) {
         mProgressBar.setVisibility(View.VISIBLE);
         DatabaseReference mDatabase;

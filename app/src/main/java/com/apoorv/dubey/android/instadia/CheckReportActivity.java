@@ -96,7 +96,7 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setType("text/plain");
                 emailIntent.putExtra(Intent.EXTRA_CC, new String[] {"apoorv111221cse@gmail.com"});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "InstaDia CSV");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "InstaDia_Report CSV");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi,please find the attachment.");
                 File file = new File(path, name);
                 if (!file.exists() || !file.canRead()) {
@@ -169,7 +169,7 @@ public class CheckReportActivity extends AppCompatActivity implements CustomAdap
                                     //Environment.DIRECTORY_PICTURES
                                     Environment.DIRECTORY_DCIM + "/CSV/"
                             );
-            name = System.currentTimeMillis()+"MyFusion.csv";
+            name = System.currentTimeMillis()+"InstaDia_Report.csv";
             writeToFile(output,path,name);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

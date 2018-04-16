@@ -15,15 +15,31 @@
         android:translationY="7dp"
         android:visibility="gone"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
     <Button
         android:id="@+id/btn_add"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_margin="15dp"
         android:background="@drawable/customborder"
         android:textColor="@android:color/white"
         android:text="Add Stock"
         />
+    <Button
+        android:id="@+id/btn_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/customborder"
+        android:textColor="@android:color/white"
+        android:text="Share Report"
+        />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

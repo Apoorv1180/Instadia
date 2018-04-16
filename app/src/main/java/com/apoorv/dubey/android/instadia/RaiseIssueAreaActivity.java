@@ -8,11 +8,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +31,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.apoorv.dubey.android.Adapter.ImportantIssueAdapter;
+import com.apoorv.dubey.android.CSVUtils.CSVWriters;
+import com.apoorv.dubey.android.CSVUtils.JsonFlattener;
 import com.apoorv.dubey.android.model.ImportantIssue;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,14 +44,20 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import static android.support.v7.widget.LinearLayoutManager.VERTICAL;
@@ -58,7 +68,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     File finalFile;
     Uri downloadUri, tempUri;
     private String finalDownLoadUrl = "";
-    private Button btnAddData;
+    private Button btnAddData,btnShare;
     private Button btnCancel;
     private ImportantIssueAdapter importantIssueAdapter;
     private RecyclerView recyclerView;
@@ -68,6 +78,8 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
     private LinearLayout lnrAddIssue;
     private EditText edtIssue;
     private Button btnSave;
+    private File path;
+    private String name;
     private StorageReference mStorageReference;
 
 
@@ -81,6 +93,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raise_issue_area);
         btnAddData = findViewById(R.id.btn_add_issue);
+        btnShare=findViewById(R.id.btn_share_issue);
         recyclerView = findViewById(R.id.recyclerView);
         mProgressBar = findViewById(R.id.progress_bar);
         lnrAddIssue = findViewById(R.id.lnr_add_issue);
@@ -92,6 +105,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         imgTakePicture.setOnClickListener(this);
         context = RaiseIssueAreaActivity.this;
         btnSave.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         mProgressBar.setVisibility(View.VISIBLE);
         btnAddData.setOnClickListener(this);
@@ -200,10 +214,93 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                 //TODO take picture here
                 openCamera();
                 break;
+            case R.id.btn_share_issue:
+                generateCSV();
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_CC, new String[] {"apoorv111221cse@gmail.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "InstaDia_Important_Issue CSV");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi,please find the attachment.");
+                File file = new File(path, name);
+                if (!file.exists() || !file.canRead()) {
+                    return;
+                }
+                Uri uri = FileProvider.getUriForFile(RaiseIssueAreaActivity.this, getApplicationContext().getPackageName() + ".provider", file);
+                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"));
+                break;
         }
     }
 
+    private void generateCSV() {
+        Gson gson = new Gson();
+        String reqJson =  "";
+        if (importantIssuesList.size() != 0)
+        {
+            reqJson= gson.toJson(importantIssuesList);
+        }
+        else
+        {
+            reqJson= gson.toJson(importantIssuesList);
+        }
 
+        JsonFlattener parser = new JsonFlattener();
+        CSVWriters writer = new CSVWriters();
+
+        List<Map<String, String>> flatJson = null;
+        //to this path add a new directory path and create new App dir (InstroList) in /documents Dir
+
+        try {
+            flatJson = parser.parseJson(reqJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            String output = writer.writeAsCSV(flatJson,"");
+            path =
+                    Environment.getExternalStoragePublicDirectory
+                            (
+                                    //Environment.DIRECTORY_PICTURES
+                                    Environment.DIRECTORY_DCIM + "/CSV/"
+                            );
+            name = System.currentTimeMillis()+"InstaDia_Important_Issue.csv";
+            writeToFile(output,path,name);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void writeToFile(String data,File path,String name)
+    {
+        // Get the directory for the user's public pictures directory.
+        // Make sure the path directory exists.
+        if(!path.exists())
+        {
+            // Make it, if it doesn't exit
+            path.mkdirs();
+        }
+
+        final File file = new File(path,name);
+
+        // Save your stream, don't forget to flush() it before closing it.
+
+        try
+        {
+            file.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(file);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(data);
+
+            myOutWriter.close();
+
+            fOut.flush();
+            fOut.close();
+        }
+        catch (IOException e)
+        {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
 
     private void openCamera() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
