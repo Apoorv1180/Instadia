@@ -127,7 +127,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            SaveData saveData = this.saveDataArrayList.get(position);
+            SaveData saveData = saveDataList.get(position);
             Intent intent = new Intent(this.context,SingleReportViewItem.class);
             intent.putExtra("date",saveData.getDate());
             intent.putExtra("userName",saveData.getUserName());
