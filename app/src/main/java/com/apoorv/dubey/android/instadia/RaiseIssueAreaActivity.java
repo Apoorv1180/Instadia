@@ -97,12 +97,11 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         recyclerView = findViewById(R.id.recyclerView);
         mProgressBar = findViewById(R.id.progress_bar);
         lnrAddIssue = findViewById(R.id.lnr_add_issue);
-        imgTakePicture = findViewById(R.id.img_take_picture);
-        imgIssue = findViewById(R.id.img_issue);
+        imgIssue = findViewById(R.id.img_take_picture);
         btnSave = findViewById(R.id.btn_save);
         edtIssue = findViewById(R.id.edt_issue_description);
         btnCancel = findViewById(R.id.btn_cancel);
-        imgTakePicture.setOnClickListener(this);
+       // imgTakePicture.setOnClickListener(this);
         context = RaiseIssueAreaActivity.this;
         btnSave.setOnClickListener(this);
         btnShare.setOnClickListener(this);
@@ -115,6 +114,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         recyclerView.setLayoutManager(new LinearLayoutManager(this, VERTICAL, false));
         recyclerView.setAdapter(importantIssueAdapter);
         importantIssue = new ImportantIssue();
+        imgIssue.setOnClickListener(this);
         mStorageReference= FirebaseStorage.getInstance().getReference();
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
@@ -148,6 +148,10 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
                     downloadUri = taskSnapshot.getDownloadUrl();
                     Log.i("DownLoad uri",downloadUri.toString());
                     finalDownLoadUrl = downloadUri.toString();
+                    importantIssue = new ImportantIssue();
+                    importantIssue.setId(String.valueOf(System.currentTimeMillis()));
+                    importantIssue.setIssueDescription(edtIssue.getText().toString());
+
                     btnSave.setEnabled(true);
                 }
             }).addOnFailureListener(new OnFailureListener() {
