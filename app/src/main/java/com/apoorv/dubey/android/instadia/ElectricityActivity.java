@@ -160,7 +160,7 @@ public class ElectricityActivity extends AppCompatActivity {
             Log.i("URI", tempUri.toString());
             File finalFile = new File(getRealPathFromURI(tempUri));
             electricity_image_view.setImageURI(Uri.fromFile(finalFile));
-            StorageReference filepath = mStorageReference.child("Photos").child(getBookingTimestamp());
+            StorageReference filepath = mStorageReference.child("Photos").child(String.valueOf(System.currentTimeMillis()));
             filepath.putFile(tempUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

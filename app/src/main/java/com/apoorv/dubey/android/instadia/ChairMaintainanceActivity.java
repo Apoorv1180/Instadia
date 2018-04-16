@@ -171,7 +171,7 @@ public class ChairMaintainanceActivity extends AppCompatActivity {
             Log.i("URI",tempUri.toString());
             File finalFile = new File(getRealPathFromURI(tempUri));
             chair_main_image_view.setImageURI(Uri.fromFile(finalFile));
-            StorageReference filepath = mStorageReference.child("Photos").child(getBookingTimestamp());
+            StorageReference filepath = mStorageReference.child("Photos").child(String.valueOf(System.currentTimeMillis()));
 
             filepath.putFile(tempUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

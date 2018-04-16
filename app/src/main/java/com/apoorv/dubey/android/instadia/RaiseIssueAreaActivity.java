@@ -138,7 +138,7 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
             Log.i("URI",tempUri.toString());
             File finalFile = new File(getRealPathFromURI(tempUri));
             imgIssue.setImageURI(Uri.fromFile(finalFile));
-            StorageReference filepath = mStorageReference.child("Photos").child(getBookingTimestamp());
+            StorageReference filepath = mStorageReference.child("Photos").child(String.valueOf(System.currentTimeMillis()));
 
             filepath.putFile(tempUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -323,6 +323,10 @@ public class RaiseIssueAreaActivity extends AppCompatActivity implements View.On
         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
         mProgressBar.setVisibility(View.GONE);
         lnrAddIssue.setVisibility(View.GONE);
+        edtIssue.setText(null);
+        imgIssue.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.app_icon_2));
+        imgIssue.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.app_icon_2));
+        imgIssue.setImageURI(Uri.parse(""));
 
     }
     private void writeData(ImportantIssue issue) {
